@@ -1,0 +1,386 @@
+{
+  "schema": 1,
+  "stage": {
+    "id": "WindmillIsleAct1",
+    "archive_stem": "ActD_MykonosAct1",
+    "display_name": "Windmill Isle Act 1",
+    "platform": "xbox360"
+  },
+  "source_roots": {
+    "game": "game",
+    "update": "update",
+    "dlc_apotos_shamar": "dlc/Apotos & Shamar Adventure Pack"
+  },
+  "load_layers": [
+    {
+      "id": "stage_control",
+      "required": true,
+      "kind": "ar_arl",
+      "root": "game",
+      "arl": "#ActD_MykonosAct1.arl",
+      "parts": [
+        "#ActD_MykonosAct1.ar.00"
+      ],
+      "purpose": [
+        "stage_descriptor",
+        "placement_sets",
+        "paths",
+        "terrain_metadata",
+        "packed_file_indices",
+        "collision",
+        "lighting"
+      ],
+      "notable_entries": [
+        "Stage.stg.xml",
+        "Base.set.xml",
+        "Break.set.xml",
+        "Design.set.xml",
+        "Effect.set.xml",
+        "FirstPlay.set.xml",
+        "Medal.set.xml",
+        "Media.set.xml",
+        "Normal.set.xml",
+        "Sound.set.xml",
+        "myk_path_act01.path.xml",
+        "StageGuidePath.path.xml",
+        "Terrain.prm.xml",
+        "Stage.pfi",
+        "Stage-Add.pfi",
+        "terrain.terrain",
+        "terrain-block.tbst",
+        "tg-0000.terrain-group",
+        "tg-0075.terrain-group",
+        "myk_col_act01.phy.hkx",
+        "light.light",
+        "light-list.light"
+      ]
+    },
+    {
+      "id": "stage_assets",
+      "required": true,
+      "kind": "ar_arl",
+      "root": "game",
+      "arl": "ActD_MykonosAct1.arl",
+      "parts": [
+        "ActD_MykonosAct1.ar.00",
+        "ActD_MykonosAct1.ar.01"
+      ],
+      "purpose": [
+        "stage_models",
+        "materials",
+        "texture_bindings",
+        "object_models",
+        "object_animation",
+        "stage_local_dds"
+      ],
+      "observed_extension_counts": {
+        ".dds": 41,
+        ".hkx": 6,
+        ".lft": 1,
+        ".lit-anim": 1,
+        ".material": 80,
+        ".model": 54,
+        ".mti": 1,
+        ".texset": 79,
+        ".texture": 204,
+        ".txt": 1,
+        ".uv-anim": 3,
+        ".vt": 1
+      }
+    },
+    {
+      "id": "shared_day_terrain_textures",
+      "required": true,
+      "kind": "ar_arl",
+      "root": "game",
+      "arl": "CmnActD_Terrain_Mykonos.arl",
+      "parts": [
+        "CmnActD_Terrain_Mykonos.ar.00"
+      ],
+      "purpose": [
+        "shared_terrain_dds"
+      ],
+      "entry_count": 34,
+      "notable_entries": [
+        "myk_cloth_ha_windmill_sail_dif.dds",
+        "myk_builparts_ha_far_dif.dds",
+        "myk_builparts_ha_far_nrm.dds",
+        "myk_builparts_ha_windmill_straw_dif.dds",
+        "myk_builparts_ha_windmill_straw_nrm.dds",
+        "myk_soil_kt_criff01_dif.dds",
+        "myk_soil_kt_criff01_nrm.dds",
+        "myk_stone_ha_bridge01_dif.dds",
+        "myk_stone_ha_bridge01_nrm.dds",
+        "myk_water_yr_sea01_dif.dds",
+        "myk_water_yr_sea01_nrm.dds",
+        "sea_env.dds"
+      ]
+    },
+    {
+      "id": "base_packed_terrain",
+      "required": true,
+      "kind": "pfi_pfd",
+      "index": {
+        "root_layer": "stage_control",
+        "entry": "Stage.pfi"
+      },
+      "data": {
+        "root": "game",
+        "path": "Packed/ActD_MykonosAct1/Stage.pfd"
+      },
+      "purpose": [
+        "streamed_terrain_groups",
+        "streamed_gi"
+      ],
+      "index_examples": [
+        "tg-0000.ar",
+        "tg-0068.ar",
+        "tg-0075.ar",
+        "gia-133.ar",
+        "gia-144.ar"
+      ]
+    },
+    {
+      "id": "update_work_override",
+      "required": true,
+      "kind": "loose_xcompress",
+      "root": "update",
+      "path": "work/ActD_MykonosAct1/Base.set.xml",
+      "logical_entry": "Base.set.xml",
+      "overrides": {
+        "layer": "stage_control",
+        "entry": "Base.set.xml"
+      },
+      "purpose": [
+        "placement_override"
+      ],
+      "difference_from_disc_base": {
+        "disc_base_objects": 63,
+        "update_objects": 64,
+        "added_object_type": "TriangleJumpCollision"
+      },
+      "note": "The file is XCompress-wrapped on disk even though its logical payload is XML."
+    },
+    {
+      "id": "dlc_additional_packed",
+      "required": false,
+      "condition": "Apotos & Shamar Adventure Pack installed/active",
+      "kind": "pfi_pfd",
+      "index": {
+        "root_layer": "stage_control",
+        "entry": "Stage-Add.pfi"
+      },
+      "data": {
+        "root": "dlc_apotos_shamar",
+        "path": "Additional/ActD_MykonosAct1/Stage-Add.pfd"
+      },
+      "purpose": [
+        "additional_gi_streaming_data"
+      ],
+      "index_examples": [
+        "gia-0.ar",
+        "gia-64.ar",
+        "gia-106.ar",
+        "gia-132.ar"
+      ]
+    },
+    {
+      "id": "dlc_terrain_tuning",
+      "required": false,
+      "condition": "Apotos & Shamar Adventure Pack installed/active",
+      "kind": "loose_xcompress",
+      "root": "dlc_apotos_shamar",
+      "path": "work/ActD_MykonosAct1/Terrain.prm.xml",
+      "logical_entry": "Terrain.prm.xml",
+      "purpose": [
+        "additional_streaming_budget_tuning"
+      ],
+      "notable_values": {
+        "g_Xbox360LimitSizeWithAdditional": 27000000,
+        "g_Ps3LimitSizeWithAdditional": 27000000,
+        "g_Level2OffsetWithAdditional": -10
+      },
+      "note": "This is tuning for the additional packed dataset, not the terrain geometry itself."
+    }
+  ],
+  "resource_resolution": {
+    "spawn": {
+      "source": {
+        "layer": "stage_control",
+        "entry": "Stage.stg.xml"
+      },
+      "position": [
+        391.55,
+        44.48,
+        104.08
+      ],
+      "yaw_degrees": -120.0,
+      "mode": "Stand"
+    },
+    "terrain": {
+      "descriptor": {
+        "layer": "stage_control",
+        "entry": "Stage.stg.xml",
+        "terrain_info_file": "terrain"
+      },
+      "metadata": {
+        "layer": "stage_control",
+        "entries": [
+          "terrain.terrain",
+          "terrain-block.tbst",
+          "tg-0000.terrain-group ... tg-0075.terrain-group"
+        ]
+      },
+      "streamed_payload": {
+        "index_entry": "Stage.pfi",
+        "pfd_path": "game/Packed/ActD_MykonosAct1/Stage.pfd"
+      },
+      "render_assets": {
+        "layer": "stage_assets"
+      },
+      "shared_textures": {
+        "layer": "shared_day_terrain_textures"
+      }
+    },
+    "packed_files": {
+      "base": {
+        "pfi": "#ActD_MykonosAct1 -> Stage.pfi",
+        "pfd": "game/Packed/ActD_MykonosAct1/Stage.pfd"
+      },
+      "additional": {
+        "optional": true,
+        "pfi": "#ActD_MykonosAct1 -> Stage-Add.pfi",
+        "pfd": "dlc/Apotos & Shamar Adventure Pack/Additional/ActD_MykonosAct1/Stage-Add.pfd"
+      }
+    },
+    "placement": {
+      "stage_layers": [
+        "Base.set.xml",
+        "Normal.set.xml",
+        "Break.set.xml",
+        "Design.set.xml",
+        "Sound.set.xml",
+        "Effect.set.xml",
+        "Medal.set.xml",
+        "Media.set.xml",
+        "FirstPlay.set.xml"
+      ],
+      "stage_layers_source": "stage_control",
+      "base_effective_source": "update/work/ActD_MykonosAct1/Base.set.xml",
+      "base_disc_fallback": "#ActD_MykonosAct1 -> Base.set.xml"
+    },
+    "paths": {
+      "container": "myk_path_act01",
+      "container_entry": "#ActD_MykonosAct1 -> myk_path_act01.path.xml",
+      "guide_path_entry": "#ActD_MykonosAct1 -> StageGuidePath.path.xml",
+      "guide_name": "myk_Act1_camera001",
+      "single_forward": {
+        "name": "myk_Act1_quick001@QS",
+        "path_num": 3,
+        "space": 2.5
+      }
+    },
+    "collision": {
+      "container": "myk_col_act01",
+      "entry": "#ActD_MykonosAct1 -> myk_col_act01.phy.hkx"
+    },
+    "textures": {
+      "stage_local": {
+        "layer": "stage_assets",
+        "types": [
+          ".texture",
+          ".texset",
+          ".dds"
+        ]
+      },
+      "shared_day_terrain": {
+        "layer": "shared_day_terrain_textures",
+        "type": ".dds"
+      },
+      "streamed_gi": {
+        "base": "Stage.pfi + Stage.pfd",
+        "additional_optional": "Stage-Add.pfi + Stage-Add.pfd"
+      }
+    },
+    "sky": {
+      "model": "myk_sky_morning",
+      "asset_layer": "stage_assets"
+    },
+    "lighting": {
+      "data_name": "light",
+      "source_layer": "stage_control"
+    }
+  },
+  "effective_precedence": [
+    "Disc control metadata establishes logical stage resource names and contains both packed-file indices.",
+    "Disc stage assets and CmnActD_Terrain_Mykonos supply non-streamed render assets and shared terrain DDS resources.",
+    "Stage.pfi resolves streamed base terrain/GI records into game/Packed/ActD_MykonosAct1/Stage.pfd.",
+    "update/work/ActD_MykonosAct1/Base.set.xml replaces the disc Base.set.xml placement layer for the updated game.",
+    "When the Apotos & Shamar Adventure Pack is active, Stage-Add.pfi resolves additional GI records into its Stage-Add.pfd and the DLC work Terrain.prm.xml supplies additional-streaming tuning."
+  ],
+  "files": [
+    {
+      "path": "game/#ActD_MykonosAct1.arl",
+      "size": 550,
+      "sha256": "84F6343DDD861B6A1D77012BD57BB374AB1D309D281B1C722C09B844ABB29B65"
+    },
+    {
+      "path": "game/#ActD_MykonosAct1.ar.00",
+      "size": 888226,
+      "sha256": "98CF078CDE385DE4F7F8DECAC171483ADE6CDD79F306B60D0094FA28225DDF2F"
+    },
+    {
+      "path": "game/ActD_MykonosAct1.arl",
+      "size": 2436,
+      "sha256": "2B42F05BAD50D1E69E11C76F2847B5B8C72C73467377C89BF83ADCB08CE4566C"
+    },
+    {
+      "path": "game/ActD_MykonosAct1.ar.00",
+      "size": 5421710,
+      "sha256": "6C64245202C6075056D1E887E81C103B87B8DA41E00A2E4C7981163C1CE951BF"
+    },
+    {
+      "path": "game/ActD_MykonosAct1.ar.01",
+      "size": 2182934,
+      "sha256": "622562DE242BBA961B71AB85B8BE724C550C381C138F4E6BDB963B25BBADEE0C"
+    },
+    {
+      "path": "game/CmnActD_Terrain_Mykonos.arl",
+      "size": 442,
+      "sha256": "67D7E23B076AC193BF5CEF941E9405F92CDE1E38D362BCC08100411D89C9C368"
+    },
+    {
+      "path": "game/CmnActD_Terrain_Mykonos.ar.00",
+      "size": 1736306,
+      "sha256": "5F6355EAE2474649C12F846879036B45C00498561A39B6E21D279F5A86106E91"
+    },
+    {
+      "path": "game/Packed/ActD_MykonosAct1/Stage.pfd",
+      "size": 12561722,
+      "sha256": "0DCA7B499A8BFACC8FCFB4DC86C93CD762DD41B87D50490405B03B8ED6EB54B7"
+    },
+    {
+      "path": "update/work/ActD_MykonosAct1/Base.set.xml",
+      "size": 4818,
+      "sha256": "D662201C525F6D2856F393B5703B71249BA2A90DEB32C543D624794B0B79AF23"
+    },
+    {
+      "path": "dlc/Apotos & Shamar Adventure Pack/Additional/ActD_MykonosAct1/Stage-Add.pfd",
+      "size": 24180746,
+      "sha256": "F9D41A2970BE817CAF37EC727FA43634638426DB0F59A4303B96DB9DB9D5289F",
+      "optional": true
+    },
+    {
+      "path": "dlc/Apotos & Shamar Adventure Pack/work/ActD_MykonosAct1/Terrain.prm.xml",
+      "size": 818,
+      "sha256": "E8A5A4EDCC898BF119B6DFAD83DBB692F4D93E85161C831349228147C5AA84D4",
+      "optional": true
+    }
+  ],
+  "implementation_notes": [
+    "All .ar/.arl and loose work XML files listed here are XCompress-wrapped in the installed Xbox 360 data and must be decompressed before format parsing.",
+    "Do not look for loose Stage.pfi or Stage-Add.pfi files: both indices are entries inside #ActD_MykonosAct1.",
+    "Do not treat CmnActD_Terrain_Mykonos as the geometry source; the observed archive contains 34 shared DDS files.",
+    "Do not duplicate archive, XCompress, PFI/PFD, XML, Havok, or Mirage parsing in unleashed-game. Stage code should only resolve these manifest paths and logical resource names through the relevant asset parsers."
+  ]
+}

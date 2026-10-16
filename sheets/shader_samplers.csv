@@ -1,0 +1,8 @@
+sampler,slot,kinds
+g_ShadowMapSampler,0,2d
+sampDif,1,2d
+sampEnv,2,2d;cube
+sampFalloff,3,2d
+sampNrm,4,2d
+sampPower,5,2d
+sampSpec,6,2d

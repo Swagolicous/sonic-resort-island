@@ -1,0 +1,25 @@
+name,module,value,source,doc
+LOW_SPEED_LIMIT,unleashed-game/sonic,20.0,DAT_8326aaec;sub_82347B18;sub_82347DE0,"Low-speed posture's speed cap and HighSpeed hand-over speed (`DAT_8326aaec`, sub_82347B18 / sub_82347DE0)."
+HIGH_SPEED_DELAY,unleashed-game/sonic,0.1,DAT_8326aaf0,LowSpeed -> HighSpeed once speed stays >= 0.9 * limit this long (`DAT_8326aaf0`).
+AIR_ROTATION_FORCE,unleashed-game/sonic,60.0,DAT_8326a86c;DAT_8326a870;sub_82346880,"Air posture's rotation force and facing rate (sub_82346880: `DAT_8326a86c`, `DAT_8326a870`, 2*pi)."
+AIR_ROTATION_FORCE_RATE,unleashed-game/sonic,0.6,DAT_8326a86c;DAT_8326a870;sub_82346880,"Air posture's rotation force and facing rate (sub_82346880: `DAT_8326a86c`, `DAT_8326a870`, 2*pi)."
+AIR_ROTATION_SPEED_MAX,unleashed-game/sonic,TAU,DAT_8326a86c;DAT_8326a870;sub_82346880,"Air posture's rotation force and facing rate (sub_82346880: `DAT_8326a86c`, `DAT_8326a870`, 2*pi)."
+AIR_INPUT_HOLD,unleashed-game/sonic,0.3,sub_82346880,Input length above which in-air deceleration is disabled (sub_82346880).
+JUMP_TOP_SPEED,unleashed-game/sonic,8.0,DAT_832691c8,Vertical speed below which the short jump reaches its top (`DAT_832691c8`).
+QUAT_HALF_ANGLE,unleashed-game/sonic,0.5,DAT_820ca998;sub_82E85988,Axis-angle to quaternion uses half the angle (sub_82E85988: `DAT_820ca998`).
+DEG_TO_RAD,unleashed-game/sonic,0.017453292,DAT_8200da0c;sub_82318850,Degrees to radians as the game scales angle parameters (`DAT_8200da0c`).
+TURN_INPUT_EPSILON,unleashed-game/sonic,0.0001,DAT_8200d754;sub_82349538,Squared input / velocity length below which sub_82349538 does not turn (`DAT_8200d754`).
+TURN_MIN_SPEED,unleashed-game/sonic,0.1,DAT_8200a0a4;sub_82349538,Speed floor when sub_82349538 projects the facing forward (`DAT_8200a0a4`).
+TURN_ANGLE_EPSILON,unleashed-game/sonic,0.000001,DAT_8211f140;sub_82349538,Heading change below which the velocity is not turned (`DAT_8211f140`).
+ROTATION_FORCE_BLEND_TARGET,unleashed-game/sonic,80.0,DAT_8326ab04;sub_823472A0,Rotation force a flag-22 context blends toward (`DAT_8326ab04`).
+ROTATION_FORCE_BLEND_TARGET_BOOST,unleashed-game/sonic,35.0,DAT_8326ab08;sub_823472A0,"The same while boosting (flag 14, `DAT_8326ab08`)."
+SIDE_DRAG_FORCE,unleashed-game/sonic,20.0,DAT_8326aaf4;sub_82346FE0,"Force cancelling sideways ground motion (sub_82346FE0 default, `DAT_8326aaf4`; name inferred from use in sub_82347448)."
+SIDE_DRAG_FORCE_ALT,unleashed-game/sonic,5.0,DAT_8326aaf8;sub_82346FE0,sub_82346FE0 with its flag argument set (`DAT_8326aaf8`).
+SIDE_DRAG_FORCE_BOOST,unleashed-game/sonic,80.0,DAT_8326aafc;sub_82346FE0,"sub_82346FE0 while boosting (flag 14, `DAT_8326aafc`)."
+ACCEL_TARGET_EPSILON,unleashed-game/sonic,0.01,DAT_82009f28;sub_8234C5F8,Target speed below which sub_8234C5F8 compares against the plain speed (`DAT_82009f28`).
+ACCEL_HOLD_SPEED,unleashed-game/sonic,0.25,DAT_8209903c;sub_8234C5F8,Target speed above which a gap under 0.1 means no acceleration (`DAT_8209903c`).
+ACCEL_HOLD_GAP,unleashed-game/sonic,0.1,DAT_8200a0a4;sub_8234C5F8,"Speed gap counted as at the target (`DAT_8200a0a4`, also sub_82349538)."
+DECEL_MIN_SQUARED,unleashed-game/sonic,0.010000001,DAT_82099038;sub_8234C5F8,Squared deceleration below which the fallback scaling is used (`DAT_82099038`).
+BRAKE_STOP_SPEED,unleashed-game/sonic,10.0,DAT_820967b4;sub_82349FF0,"With the stick released, braking ends once the speed is at most this (`DAT_820967b4`)."
+BRAKE_VIEW_ANGLE,unleashed-game/sonic,0.7853981852531433,DAT_82012080;sub_82349FF0,"In the air the view axis replaces the velocity direction within this angle of it (cos taken; `DAT_82012080`, a double)."
+LAND_SLOPE_HYSTERESIS,unleashed-game/sonic,2.5,DAT_82092040;sub_82317D58,Degrees added to LandEnableMaxSlope while already grounded (`DAT_82092040`).

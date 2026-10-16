@@ -1,0 +1,2 @@
+address,name,inputs,outputs,doc
+0x82E85BA8,quat_mul_inverse,r5+0;r4+0,r3+0,"Conjugate of r5 divided by its squared length (zero when that is <= 0x34000000 = 2^-23), multiplied with r4 lane-wise by four dot products of shuffled copies; result to r3."

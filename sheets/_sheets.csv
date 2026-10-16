@@ -1,0 +1,20 @@
+sheet,key,group,generates,doc
+params,group+id,category,unleashed-game/src/sonic/param_table.rs,One row per parameter registration in default.xex (group = registration function).
+param_values,group+param_id+store,store,unleashed-game/src/sonic/param_table.rs,Default value a registration sets in one store.
+stores,store,parent,unleashed-game/src/sonic/param_table.rs,Parameter store tree; a lookup falls back to the parent.
+sonic_fields,field,-,unleashed-game/src/sonic/param_fields.rs,SonicParams struct fields: which parameter each controller field reads.
+constants,module+name,module,unleashed-game/src/sonic/constants.rs,Executable constants (DAT_ globals / immediates) the port uses.
+systems,system,crate,-,Every game system (RTTI classes bucketed by regex) and the crate/sheets covering it.
+camera_fields,view+field,view,unleashed-game/src/camera/params.rs,Camera.prm.xml parameters the Sonic cameras read (values come from the player's own file at runtime).
+sonic_materials,material,-,unleashed-game/src/sonic/look.rs,SonicRoot.model materials and the shader list each draws with.
+shader_lists,shader_list+pixel_perm+vertex_perm,shader_list,unleashed-game/src/sonic/look.rs,"Shader-list permutations: pixel/vertex programs and which variants exist (bit 1 ConstTexCoord, 2 NoGI, 4 NoLight)."
+shader_programs,program,stage,unleashed-game/src/sonic/look.rs,"Concrete Xenos programs Sonic's materials can select, and their WGSL port."
+port_functions,system+address,system,-,Guest functions behind each ported system (recompiled C++ in re/xenon/ppc) and the Rust fn that ports each.
+shader_samplers,sampler,-,-,"Sampler names Sonic's programs fetch through; slot i binds group 1 at 4i (2D), 4i+1 (3D), 4i+2 (cube), 4i+3 (sampler)."
+math_tables,table+offset,table,unleashed-game/src/sonic/crt_tables.rs,Constant tables of the console CRT math the port reproduces (read from default.xex).
+boundaries,address,host,-,Engine services Sonic's code calls; the port's host interface (and what oracle tests can stand in for).
+context_fields,struct+offset,struct,unleashed-game/src/sonic/context.rs,"Guest layout of the speed context and posture, each field proven by the functions that use it."
+context_flags,index,-,unleashed-game/src/sonic/context.rs,Speed context flag indices (ctx+0x4AC flag set).
+vmx_functions,address,-,unleashed-game/src/sonic/vmx_gen.rs,Straight-line VMX guest functions translated mechanically by re/xenon/vmx2rust.py (signature checked against the translation).
+lift_roots,address,system,-,Guest functions whose call closure is lifted to Rust (crates/unleashed-guest) by re/xenon/ppc2rust.py: sheetc.py lift.
+host_functions,address,-,-,Guest functions UnleashedRecomp replaces with host code (GUEST_FUNCTION_HOOK); the lift calls Host::hook instead of lifting them.

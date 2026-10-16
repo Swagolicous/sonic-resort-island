@@ -1,0 +1,92 @@
+sheet,column,type,nullable,doc
+params,group,enum:sonic|mode|common,no,Registration group in Decomp/params.json
+params,id,hex,no,Parameter id in the store
+params,name,ident,yes,Editor name; - = registered without one (generated as ParamXXX)
+params,name_jp,text,yes,Japanese editor label
+params,category,ident,yes,Editor category
+params,type,ident,no,Registration value type (float or raw type tag)
+params,editor_min,f32,yes,Editor slider min
+params,editor_max,f32,yes,Editor slider max
+params,editor_step,f32,yes,Editor slider step
+params,set_at,hex,no,Instruction address that registers it
+param_values,group,enum:sonic|mode|common,no,
+param_values,param_id,hex,no,
+param_values,store,hex,no,Global holding the store
+param_values,value,f32,no,Default value (exact f64 repr of the f32)
+stores,store,hex,no,Global holding the store
+stores,parent,hex,yes,- = root
+stores,name,ident,yes,Generates STORE_<NAME>; - = not identified yet
+stores,view,enum:yes|no,no,A View the runtime resolves (every sonic_fields row must resolve here)
+stores,doc,text,yes,
+sonic_fields,field,snake,no,SonicParams field
+sonic_fields,param_id,hex,no,Parameter it reads (merged over groups)
+constants,name,screaming,no,
+constants,module,module,no,<crate>/<path under src> that gets constants.rs
+constants,value,f32,no,"Number, inf, TAU or PI"
+constants,source,addrlist,yes,sub_/DAT_ addresses it was read from (; separated)
+constants,doc,text,no,
+systems,system,snake,no,
+systems,match,regex,no,Class-name regex; first matching row wins
+systems,classes,int,no,RTTI classes matched (recounted by preflight)
+systems,crate,crate,yes,- = no crate implements it
+systems,sheets,sheetlist,yes,- = no sheet describes it (unimplemented)
+camera_fields,view,enum:common|forward|side,no,"Camera.prm.xml section (Common, Sonic/Forward, Sonic/Side)"
+camera_fields,category,ident,no,
+camera_fields,xml_path,text,no,Flattened Section/Category/Name path
+camera_fields,field,snake,no,Generated struct field
+camera_fields,type,enum:f32|bool,no,
+sonic_materials,material,ident,no,
+sonic_materials,shader_list,text,no,
+sonic_materials,textures,text,yes,slot:texture; ...
+shader_lists,shader_list,text,no,
+shader_lists,pixel_perm,ident,no,"""default"" (or ""instancing"")"
+shader_lists,pixel_shader,text,no,Base pixel program
+shader_lists,pixel_variants,hex,no,Bit i set = variant i exists
+shader_lists,vertex_perm,ident,no,"""none"" for regular meshes, ""p"" for morph meshes"
+shader_lists,vertex_shader,text,no,Base vertex program
+shader_lists,vertex_variants,hex,no,
+shader_programs,program,text,no,
+shader_programs,stage,enum:vertex|pixel,no,
+shader_programs,source,text,no,Microcode in re/xenos/shader (translated to re/xenos/hlsl/<program>.hlsl)
+shader_programs,wgsl,text,yes,"WGSL (unleashed-rs-relative path, written by re/xenos/wgsl.py); - = not converted yet"
+port_functions,system,enum:camera3d|camera2d|posture3d|posture2d,no,
+port_functions,address,hex,no,Guest function (re/xenon/fn.py show <addr>)
+port_functions,name,text,yes,Decomp / RTTI name
+port_functions,lines,int,no,Recompiled C++ lines
+port_functions,parent,hex,yes,Caller in the tree; - = vtable method
+port_functions,depth,int,no,
+port_functions,rust,text,yes,crate/path.rs::fn porting it; - = not ported yet
+shader_samplers,sampler,ident,no,
+shader_samplers,slot,int,no,Binding slot
+shader_samplers,kinds,text,no,2d;3d;cube kinds the programs fetch
+math_tables,table,snake,no,CRT routine
+math_tables,base,hex,no,Guest address of the table
+math_tables,offset,int,no,Byte offset the routine reads
+math_tables,kind,enum:f64|f32,no,
+math_tables,bits,hex,no,Raw IEEE bits
+boundaries,address,hex,no,Guest function
+boundaries,host,snake,no,Host interface method the port calls instead
+boundaries,args,text,no,Guest calling convention (registers in -> out)
+boundaries,doc,text,no,
+context_fields,struct,enum:speed_context|posture,no,
+context_fields,offset,hex,no,Byte offset
+context_fields,field,snake,no,
+context_fields,type,enum:vec4|mat4|quat|f32|u8|i32|ptr,no,
+context_fields,evidence,addrlist,no,Guest functions reading/writing it
+context_fields,doc,text,no,
+context_flags,index,int,no,
+context_flags,name,snake,no,
+context_flags,evidence,addrlist,no,
+context_flags,doc,text,no,
+vmx_functions,address,hex,no,Guest function
+vmx_functions,name,ident,no,Rust alias for sub_<addr>
+vmx_functions,inputs,text,no,Loaded (register+offset) list as the translator derives it
+vmx_functions,outputs,text,no,Stored (register+offset) list
+vmx_functions,doc,text,no,What the function computes (from reading the C++)
+lift_roots,address,hex,no,Guest function (root of a call closure)
+lift_roots,system,enum:posture|camera|render|engine|havok,no,
+lift_roots,doc,text,no,What it is
+host_functions,address,hex,no,Guest function
+host_functions,name,ident,no,UnleashedRecomp host function
+host_functions,rust,text,yes,Where the Rust host implements it; - = not yet (reaching it panics)
+host_functions,doc,text,no,

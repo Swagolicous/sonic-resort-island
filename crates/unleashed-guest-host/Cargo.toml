@@ -1,0 +1,13 @@
+[package]
+name = "unleashed-guest-host"
+version = "0.1.0"
+edition = "2024"
+description = "Runs Sonic's lifted guest code (crates/unleashed-guest) frame by frame from a capture-build snapshot."
+
+[dependencies]
+xenon-rt = { path = "../xenon-rt" }
+unleashed-guest = { path = "../unleashed-guest" }
+memchr = "2"
+
+[dev-dependencies]
+serde_json = "1"

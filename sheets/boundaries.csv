@@ -1,0 +1,5 @@
+address,host,args,doc
+0x8245DB60,param,"r3 = parameter store (ctx+0x1FC), r4 = parameter id -> f1",Parameter value by id from the store tree (sheets/params.csv; ParamSet::get in the port).
+0x82308300,rotate_body,"r3 = speed context, r4 = rotation delta quaternion",Applies a rotation delta to the character body (ctx+0x10 -> sub_825904E8).
+0x822D20B0,keep_running_direction,"r3 = guide object (ctx+0x650), r4 = out direction",Direction KeepRunning holds the speed along (flag 31).
+0x82316EB0,control_matrix,r3 = speed context -> r3 = matrix,"Frame the stick is read against: ctx+0x610 when ctx+0x600 is set, else the engine view (via ctx+0x100)."

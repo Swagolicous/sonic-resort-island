@@ -1,0 +1,10 @@
+[package]
+name = "unleashed-runtime"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow.workspace = true
+unleashed-assets = { path = "../unleashed-assets" }
+unleashed-platform = { path = "../unleashed-platform" }
+unleashed-render = { path = "../unleashed-render" }

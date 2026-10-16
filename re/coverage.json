@@ -1,0 +1,14 @@
+{
+  "project": "Sonic Unleashed Xbox 360 -> native Rust",
+  "reference_binary_sha256": "2647D543B3112AC81BB509ABA24299A7A818852FAC968C7E4249E588724594DA",
+  "first_stage": "ActD_MykonosAct1",
+  "milestones": [
+    {"id":"boot","state":"in_progress","goal":"Own Rust executable with winit/wgpu frame loop"},
+    {"id":"archive","state":"in_progress","goal":"XCompress + AR/ARL original-data extraction"},
+    {"id":"terrain","state":"todo","goal":"Render authentic Windmill Isle terrain"},
+    {"id":"sonic_model","state":"todo","goal":"Render SonicRoot with skeleton"},
+    {"id":"animation","state":"todo","goal":"Play original Sonic animation"},
+    {"id":"collision","state":"todo","goal":"Stage collision queries"},
+    {"id":"movement","state":"todo","goal":"Daytime Sonic movement parity"}
+  ]
+}

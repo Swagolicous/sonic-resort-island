@@ -1,0 +1,9 @@
+m:src                         app.root              Runtime
+m:unleashed-platform          platform              Runtime
+m:unleashed-render            rendering             Runtime
+m:unleashed-assets            assets                Runtime
+m:unleashed-game              gameplay              Runtime
+m:unleashed-physics           physics               Runtime
+m:unleashed-animation         animation             Runtime
+m:unleashed-audio             audio                 Runtime
+m:asset-inspector             tools.asset_inspector Tool

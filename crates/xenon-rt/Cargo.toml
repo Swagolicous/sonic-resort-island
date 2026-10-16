@@ -1,0 +1,7 @@
+[package]
+name = "xenon-rt"
+version = "0.1.0"
+edition = "2024"
+description = "Runtime for guest code lifted from XenonRecomp's C++ to Rust (re/xenon/ppc2rust.py)."
+
+[dependencies]

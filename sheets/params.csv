@@ -1,0 +1,451 @@
+group,id,name,name_jp,category,type,editor_min,editor_max,editor_step,set_at
+sonic,0x00D,-,-,-,float,-,-,-,0x82329A68
+sonic,0x00E,Gravity,重力,Other,t00,0.0,500.0,0.009999999776482582,0x8232AFA8
+sonic,0x00F,-,-,-,float,-,-,-,0x82324684
+sonic,0x010,AccelerationForce,加速力,Velocity,float,0.0,100.0,0.10000000149011612,0x82329400
+sonic,0x011,DecelerationForceHigh,減速力 ( 高速時 ),Velocity,float,0.0,100.0,0.10000000149011612,0x82329494
+sonic,0x012,DecelerationForceLow,減速力 ( 低速時 ),Velocity,float,0.0,100.0,0.10000000149011612,0x82329528
+sonic,0x013,InAirForceAccelRate,空中での力の地上に対する割合。加速力,Velocity,float,0.0,100.0,0.009999999776482582,0x82329650
+sonic,0x014,InAirForceDecRate,空中での力の地上に対する割合。減速力,Velocity,float,0.0,100.0,0.009999999776482582,0x823296E4
+sonic,0x015,InAirForceBrakeRate,空中での力の地上に対する割合。ブレーキ,Velocity,float,0.0,100.0,0.009999999776482582,0x8232977C
+sonic,0x016,InAirMaxAccelVelocity,空中で加速可能な最大速度,Velocity,float,0.0,100.0,0.009999999776482582,0x82329810
+sonic,0x017,JumpPower,ジャンプ力,Jump,float,0.0,100.0,0.10000000149011612,0x82329BA4
+sonic,0x018,JumpGroundVelocityRate,ジャンプ時の地面速度の影響割合,Jump,float,0.0,100.0,0.009999999776482582,0x82329CD0
+sonic,0x019,KickbackPower,壁走りキャンセルキックバック,Jump,float,0.0,100.0,0.10000000149011612,0x82329E00
+sonic,0x01A,BrakeEndSpeed,この速度以下になったらブレーキ終了モーションの再生を始める。,Brake,float,0.0,100.0,0.10000000149011612,0x8232A2B4
+sonic,0x01B,BrakeEnableSpeed,ブレーキ可能な速度,Brake,float,0.0,100.0,0.10000000149011612,0x8232A188
+sonic,0x01C,BrakeForce,ブレーキの力,Brake,t00,0.0,100.0,0.10000000149011612,0x8232A05C
+sonic,0x01D,BrakeDownForceEnableSpeed,この速度以下になったらダウンフォース無効,Brake,float,0.0,100.0,0.10000000149011612,0x8232A348
+sonic,0x01E,WalkBrakeForce,歩き中のブレーキの力,Brake,t00,0.0,1000.0,0.10000000149011612,0x8232A0F4
+sonic,0x01F,BrakeEnableAngle,ブレーキ開始と判定される角度,Brake,float,0.0,180.0,1.0,0x823251D0
+sonic,0x020,JumpShortReleaseTime,ジャンプボタンをこの時間以内に放したらショートジャンプ,Jump,float,0.0,1.0,0.009999999776482582,0x82324C00
+sonic,0x021,JumpPowerMin,最小ジャンプ力,Jump,float,0.0,100.0,0.10000000149011612,0x82329C3C
+sonic,0x022,JumpShortGroundResetDistance,ショートジャンプ中に地面とこれだけ離れたら、地面状態リセットする,Jump,float,0.0,100.0,0.10000000149011612,0x82324C8C
+sonic,0x023,BrakeCancelAngle,ブレーキキャンセルと判定される角度,Brake,float,0.0,180.0,1.0,0x82325264
+sonic,0x024,BrakeLargeSpeed,大ブレーキになる速度,Brake,float,0.0,1000.0,0.10000000149011612,0x8232A220
+sonic,0x025,-,-,-,float,-,-,-,0x82324518
+sonic,0x026,BallJumpAirDragRateScale,ハイジャンプ時の空気抵抗の通常時に対する割合,Jump,float,0.0,10.0,0.009999999776482582,0x82324D20
+sonic,0x027,-,-,-,t18,-,-,-,0x82324654
+sonic,0x028,-,-,-,t18,-,-,-,0x82324668
+sonic,0x029,CrashWallBorder,壁ぶつかりになる、速度と壁の内積の境界値 ( これより小さければ、壁ぶつかり ) ,WallCrashAndStumble,float,-1000.0,0.0,0.10000000149011612,0x82325AA0
+sonic,0x02A,IsEnableCrashWall,壁衝突ありかどうか,WallCrashAndStumble,t18,-,-,-,0x82325A18
+sonic,0x02B,StumbleHeightMax,つまづく出っ張りの高さの最大値,WallCrashAndStumble,float,0.0,1.0,0.009999999776482582,0x82325B34
+sonic,0x02C,StumbleJumpForce,つまづいたときのジャンプ力,WallCrashAndStumble,float,0.0,1.0,0.009999999776482582,0x82325BC0
+sonic,0x02D,StumbleVelocityMin,つまづきが有効になる最小の速度,WallCrashAndStumble,float,0.0,100.0,0.10000000149011612,0x82325C54
+sonic,0x02E,StumbleDecReate,つまづいた時の減速率(1.0=減速なし),WallCrashAndStumble,float,0.0,1.0,0.009999999776482582,0x82325CE0
+sonic,0x02F,StumbleInternalScale,つまづいた時の操作スケール,WallCrashAndStumble,float,0.0,1.0,0.009999999776482582,0x82325D78
+sonic,0x030,VertVelocityBallToFall,スピンアタックから落下に移行する落下速度,Jump,float,-100.0,0.0,0.10000000149011612,0x82324DC0
+sonic,0x031,DownForceEfficient,ダウンフォースが重力と同じになる時の速度,SlopeRun,float,0.0,10000000.0,0.10000000149011612,0x8232A4C4
+sonic,0x032,-,-,-,float,-,-,-,0x82324534
+sonic,0x033,-,-,-,float,-,-,-,0x82324550
+sonic,0x034,-,-,-,float,-,-,-,0x82324570
+sonic,0x035,ReactionFailPushOutForce,ReactionJumpで失敗したときに押し出される力,ReactionPlate,float,0.0,1000.0,0.10000000149011612,0x82325E50
+sonic,0x036,ReactionJumpMinVelocity,ReactionJumpの最低速度,ReactionPlate,float,0.0,1000.0,0.10000000149011612,0x82325EDC
+sonic,0x037,ReactionJumpMaxVelocity,ReactionJumpの最高速度,ReactionPlate,float,0.0,1000.0,0.10000000149011612,0x82325F68
+sonic,0x038,ReactionJumpMinEnterVelocity,ReactionJumpが最低速度になる進入速度,ReactionPlate,float,0.0,1000.0,0.10000000149011612,0x82325FF4
+sonic,0x039,ReactionJumpMaxEnterVelocity,ReactionJumpが最高速度になる進入速度,ReactionPlate,float,0.0,1000.0,0.10000000149011612,0x82326080
+sonic,0x03A,ReactionJumpGravity,ReactionJump 中の重力,ReactionPlate,float,0.0,1000.0,0.10000000149011612,0x82326118
+sonic,0x03B,-,-,-,float,-,-,-,0x8232458C
+sonic,0x03C,-,-,-,float,-,-,-,0x823245AC
+sonic,0x03D,-,-,-,float,-,-,-,0x823245C8
+sonic,0x03E,-,-,-,float,-,-,-,0x823245E4
+sonic,0x03F,DamageDownTime,ダメージダウン後、起き上がるまでの時間,Damage,float,0.0,100.0,0.10000000149011612,0x82324FC8
+sonic,0x040,DamageMoveScale,ダメージでとばされる量,Damage,float,0.0,100.0,0.10000000149011612,0x82324F34
+sonic,0x041,DamageStandUpCancelTime,ダメージ起き上がりをキャンセル可能な時間,Damage,float,0.0,100.0,0.009999999776482582,0x8232505C
+sonic,0x042,BlinkNoDamageTime,点滅無敵時間,Damage,float,0.0,100.0,0.10000000149011612,0x823250E8
+sonic,0x043,-,-,-,float,-,-,-,0x82324604
+sonic,0x044,-,-,-,float,-,-,-,0x82324624
+sonic,0x045,WallJumpReadyBorder,壁張り付きになる、速度と壁の内積の境界値(これより小さければ三角飛び準備へ),WallJump,float,-1000.0,0.0,0.10000000149011612,0x8232ADF0
+sonic,0x046,WallJumpReadyDisableAirTime,空中になってからこの時間は壁張り付きしない ( 暴発防止用 ),WallJump,float,0.0,1000.0,0.009999999776482582,0x8232770C
+sonic,0x047,WallJumpReadyMinBottomDistance,壁張り付き可能な地面への最小距離,WallJump,float,0.0,1000.0,0.10000000149011612,0x82327798
+sonic,0x048,WallJumpReadyStopTime,壁張り付きの最初の停止時間,WallJump,float,0.0,1000.0,0.009999999776482582,0x82327444
+sonic,0x049,WallJumpReadyGravity,壁張り付き中の摩擦力反映後の下方向の加速度,WallJump,float,0.0,1000.0,0.10000000149011612,0x823274D8
+sonic,0x04A,WallJumpReadyMaxDownSpeed,壁張り付き中の下方向の最高速度,WallJump,float,0.0,1000.0,0.10000000149011612,0x82327568
+sonic,0x04B,WallJumpReadyMinTime,壁張り付き最低時間,WallJump,float,0.0,1000.0,0.10000000149011612,0x823275F4
+sonic,0x04C,WallJumpReadyMaxTime,壁張り付き最高時間,WallJump,float,0.0,1000.0,0.10000000149011612,0x82327680
+sonic,0x04D,WallJumpUpForce,壁ジャンプの上方への力,WallJump,float,0.0,1000.0,0.10000000149011612,0x8232ACC4
+sonic,0x04E,WallJumpFrontForce,壁ジャンプの前方への力,WallJump,float,0.0,1000.0,0.10000000149011612,0x8232AD58
+sonic,0x04F,WallJumpAMinTime,壁ジャンプA の最小時間,WallJump,float,0.0,1000.0,0.009999999776482582,0x82327208
+sonic,0x050,WallJumpAtoBTime,壁ジャンプA to B の時間,WallJump,float,0.0,1000.0,0.009999999776482582,0x82327298
+sonic,0x051,WallJumpAtoBDistance,壁ジャンプA to B の壁への距離,WallJump,float,0.0,1000.0,0.009999999776482582,0x8232732C
+sonic,0x052,WallJumpBtoCSpeed,壁ジャンプB to C の落下速度,WallJump,float,0.0,1000.0,0.009999999776482582,0x823273B8
+sonic,0x053,StandToWalkVelocity,立ちから歩きへの移行境界速度,Other,float,0.0,100.0,0.10000000149011612,0x82328EF4
+sonic,0x054,NormalStrength,キャラクターの物理的な力 ( 通常時 ),Physics,float,0.0,1000000.0,1.0,0x8232871C
+sonic,0x055,DynamicResistanceForceWhenRun,動抵抗力。走っているときに重力と力が釣り合う斜面の角度 ( 走り中 ),SlopeRun,float,0.0,90.0,0.10000000149011612,0x8232A730
+sonic,0x056,DynamicResistanceForceWhenStand,動抵抗力。止まっているときに重力と力が釣り合う斜面の角度 ( 歩き中 ),SlopeRun,float,0.0,90.0,0.10000000149011612,0x8232A600
+sonic,0x057,StaticResistanceForceWhenRun,静止抵抗力。走っているときに重力と力が釣り合う斜面の角度 ( 走り中 ),SlopeRun,float,0.0,90.0,0.10000000149011612,0x8232A69C
+sonic,0x058,StaticResistanceForceWhenStand,静止抵抗力。止まっているときに重力と力が釣り合う斜面の角度 ( 歩き中 ),SlopeRun,float,0.0,90.0,0.10000000149011612,0x8232A560
+sonic,0x059,ResistanceStandRunBorder,抵抗力の歩き走りの境界速度,Friction,t00,0.0,100.0,0.10000000149011612,0x823261F8
+sonic,0x05A,ResistanceStandRunIntgerpolate,抵抗力の歩き走りの境界速度 Range,Friction,t00,0.0,100.0,0.10000000149011612,0x82326288
+sonic,0x05B,StaticFrictionalForce,静止摩擦力。重力と力が釣り合う斜面の角度,SlopeRun,float,0.0,90.0,0.10000000149011612,0x8232A858
+sonic,0x05C,DynamicFrictionalForce,動摩擦力。重力と力が釣り合う斜面の角度,SlopeRun,float,0.0,90.0,0.10000000149011612,0x8232A7C4
+sonic,0x05D,RecoverGridSpeed,グリッドが復帰する速度,Friction,float,0.0,100.0,0.10000000149011612,0x82326314
+sonic,0x05E,RecoverGridSideSpeedRate,グリッドが復帰する速度 ( 前後速度に対する比率 ),Friction,float,0.0,100.0,0.10000000149011612,0x823263A0
+sonic,0x05F,LostGridSideSpeedRate,グリッドを失う横速度 ( 前後速度に対する比率 ),Friction,float,0.0,100.0,0.10000000149011612,0x8232642C
+sonic,0x060,StairsMax,上れる段差の最大値,Stairs,float,0.0,1.0,0.009999999776482582,0x8232882C
+sonic,0x061,SquatAndSlidingStairsMax,しゃがみ＆スライディング中の上れる段差の最大値,Stairs,float,0.0,1.0,0.009999999776482582,0x823288E8
+sonic,0x062,StairsSensitive,階段を上ったときの、移行の早さ,Stairs,float,0.0,1000.0,0.009999999776482582,0x823289A4
+sonic,0x063,WaterDeadDownDepthMin,死亡と判定される水深 最小値,Water,float,0.0,100.0,0.009999999776482582,0x82326B80
+sonic,0x064,WaterDeadDownDepthMaxSpeed,死亡と判定される水深 最大値の速度,Water,float,0.0,100.0,0.10000000149011612,0x82326C98
+sonic,0x065,WaterDeadDownDepthMax,死亡と判定される水深 最大値,Water,float,0.0,100.0,0.009999999776482582,0x82326C0C
+sonic,0x066,WaterDrowningDepthMin,溺れはじめる水深,Water,float,0.0,100.0,0.009999999776482582,0x82327094
+sonic,0x067,WaterDrowningNoBoostTime,溺れはじめるブーストしていない時間,Water,float,0.0,100.0,0.009999999776482582,0x82327120
+sonic,0x068,BuoyantForceZeroVelocity,浮力が０になる速度,Water,t00,0.0,100.0,0.10000000149011612,0x82326D28
+sonic,0x069,BuoyantForceMaxVelocity,浮力が最大になる速度,Water,t00,0.0,100.0,0.10000000149011612,0x82326DC0
+sonic,0x06A,WaterTensionZeroVelocity,水面に進入したときに抵抗が０となる速度,Water,t00,0.0,1000.0,0.10000000149011612,0x82326EDC
+sonic,0x06B,WaterTensionMaxVelocity,水面に進入したときに抵抗が最大となる速度,Water,t00,0.0,1000.0,0.10000000149011612,0x82326F6C
+sonic,0x06C,BuoyantForceMaxGravityRate,最大浮力の重力に対する割合,Water,float,0.0,100.0,0.009999999776482582,0x82326E4C
+sonic,0x06D,WaterDecreaseForce,水上の減速力(非ブースト時),Water,t00,0.0,1000.0,0.009999999776482582,0x82327008
+sonic,0x06E,GroundSearchDiameter,地面探す直径。x/ルート2〜x の間の大きさの面の動作が未定義になります。,Other,float,0.0,1000.0,0.009999999776482582,0x82328F84
+sonic,0x06F,CameraTargetUpOffset,カメラターゲット 上方オフセット,CameraTarget,float,-100.0,100.0,0.009999999776482582,0x82327878
+sonic,0x070,CameraTargetUpOffsetInAir,カメラターゲット 上方オフセット(空中),CameraTarget,float,-100.0,100.0,0.009999999776482582,0x82327904
+sonic,0x071,CameraTargetUpOffsetSensitive,カメラターゲット 上方オフセット Sensitive,CameraTarget,float,-100.0,100.0,0.009999999776482582,0x82327990
+sonic,0x072,CameraTargetOffsetSensitive,カメラターゲット オフセット Sensitive,CameraTarget,float,-100.0,100.0,0.009999999776482582,0x82327A1C
+sonic,0x073,LandEnableMaxSlope,着地可能な最大傾斜,SlopeRun,float,0.0,90.0,1.0,0x8232A8F0
+sonic,0x074,HorzStandEnableMaxSlope,水平立ち可能な最大傾斜,Friction,float,0.0,90.0,1.0,0x823264B8
+sonic,0x075,LandStrongMinVertSpeed,強着地になる最低落下速度,Land,float,0.0,1000.0,0.10000000149011612,0x82329EEC
+sonic,0x076,LandStrongMaxHorzSpeed,強着地になる最高速度,Land,float,0.0,1000.0,0.10000000149011612,0x82329F80
+sonic,0x077,MoveHoldingMinVelocity,MoveHolding最低速度,SlopeRun,float,0.0,100.0,0.009999999776482582,0x8232A428
+sonic,0x078,MoveEnableGroundAngleInner,移行可能な角度 (内周) ,SlopeRun,float,0.0,100.0,0.009999999776482582,0x8232AAC4
+sonic,0x079,MoveEnableGroundAngleOuter,移行可能な角度 (外周) ,SlopeRun,float,0.0,100.0,0.009999999776482582,0x8232AB58
+sonic,0x07A,MoveEnableSearchDistance,地面をサーチする時の分割単位,SlopeRun,float,0.0,100.0,0.009999999776482582,0x8232ABEC
+sonic,0x07B,ItemCollisionRadius,アイテム コリジョン半径 ( リアルタイムでは反映されません ),Collision,float,0.0,100.0,0.009999999776482582,0x8232659C
+sonic,0x07C,ItemCollisionStandHeight,アイテム コリジョン 立ち時の高さ ( リアルタイムでは反映されません ),Collision,float,0.0,100.0,0.009999999776482582,0x82326628
+sonic,0x07D,ItemCollisionSquatHeight,アイテム コリジョン 座り時の高さ ( リアルタイムでは反映されません ),Collision,float,0.0,100.0,0.009999999776482582,0x823266C0
+sonic,0x07E,ItemCollisionRadiusInBoost,アイテム コリジョン半径 in Boost ( リアルタイムでは反映されません ),Collision,float,0.0,100.0,0.009999999776482582,0x82326750
+sonic,0x07F,ItemCollisionStandHeightInBoost,アイテム コリジョン 立ち時の高さ in Boost ( リアルタイムでは反映されません ),Collision,float,0.0,100.0,0.009999999776482582,0x823267DC
+sonic,0x080,ItemCollisionSquatHeightInBoost,アイテム コリジョン 座り時の高さ in Boost ( リアルタイムでは反映されません ),Collision,float,0.0,100.0,0.009999999776482582,0x82326868
+sonic,0x081,CollisionRadius,ダメージ & 地形 コリジョン半径 ( リアルタイムでは反映されません ),Collision,float,0.0,100.0,0.009999999776482582,0x823268F8
+sonic,0x082,CollisionPushingRadius,ダメージ & 地形 コリジョン 押しているときの半径 ( リアルタイムでは反映されません ),Collision,float,0.0,100.0,0.009999999776482582,0x8232698C
+sonic,0x083,CollisionStandHeight,ダメージ & 地形 コリジョン 立ち時の高さ ( リアルタイムでは反映されません ),Collision,float,0.0,100.0,0.009999999776482582,0x82326A18
+sonic,0x084,CollisionSquatHeight,ダメージ & 地形 コリジョン 座り時の高さ ( リアルタイムでは反映されません ),Collision,float,0.0,100.0,0.009999999776482582,0x82326AA8
+sonic,0x085,MaxDownVelocity,落下最大速度,Velocity,float,0.0,1000.0,0.10000000149011612,0x823292C8
+sonic,0x086,MaxUpVelocity,上昇最大速度,Velocity,float,0.0,1000.0,0.10000000149011612,0x82329368
+sonic,0x087,MaxHorzVelocity,地面最高速度(いかなる場合もこの速度を超えません),Velocity,float,0.0,1000.0,0.10000000149011612,0x82329234
+sonic,0x088,RotationForceRateMin,回転力が最低になるときの回転力の比率,Rotation,float,0.0,1.0,0.009999999776482582,0x82324948
+sonic,0x089,RotationForceMinAngle,回転力が最低になるときのパッドと速度の角度,Rotation,float,0.0,90.0,0.10000000149011612,0x823249DC
+sonic,0x08A,RotationForceRateMax,回転力が最大になるときの回転力の比率,Rotation,float,0.0,1.0,0.009999999776482582,0x82324A70
+sonic,0x08B,RotationForceMaxAngle,回転力が最大になるときのパッドと速度の角度,Rotation,float,0.0,90.0,0.10000000149011612,0x82324B04
+sonic,0x08C,NoPadStopWalkPadLengthLimit,着地後、強力停止になるパッド入力の境界,Velocity,float,0.0,1.0,0.009999999776482582,0x823298A8
+sonic,0x08D,NoPadStopWalkDecelerationForce,着地後の強力停止の力,Velocity,float,0.0,100.0,0.10000000149011612,0x82329940
+sonic,0x08E,-,-,-,float,-,-,-,0x82324640
+sonic,0x08F,NoPadStopWalkBeginMaxVelocity,着地時にこの速度以上ならば、強力停止発動しない,Velocity,float,0.0,100.0,0.10000000149011612,0x823299D4
+sonic,0x090,BlockingEnemyMaxNum,くっつく最大数,BlockedEnemy,t98,-,-,-,0x8232B260
+sonic,0x091,EnemyBlockedMaxVelocity1,１体目のエネミーがくっついたときの最高速度,BlockedEnemy,float,0.0,100.0,0.009999999776482582,0x8232B2F4
+sonic,0x092,EnemyBlockedMaxVelocityDec,２体目移行のエネミーがくっついたときの最高速度の減少,BlockedEnemy,float,0.0,100.0,0.009999999776482582,0x8232B388
+sonic,0x093,EnemyBlockedJumpPower1,１体目のエネミーがくっついたときのジャンプ力,BlockedEnemy,float,0.0,100.0,0.009999999776482582,0x8232B424
+sonic,0x094,EnemyBlockedJumpPowerDec,２体目移行のエネミーがくっついたときのジャンプ力の減少,BlockedEnemy,float,0.0,100.0,0.009999999776482582,0x8232B4B8
+sonic,0x095,EnemyBlockedRotationForce1,１体目のエネミーがくっついたときの回転力,BlockedEnemy,float,0.0,100000.0,0.10000000149011612,0x8232B548
+sonic,0x096,EnemyBlockedRotationForceDec,２体目以降のエネミーがくっついたときの回転力の減少,BlockedEnemy,float,0.0,100.0,0.10000000149011612,0x8232B5DC
+sonic,0x097,EnemyBlockedRotationSpeedMax1,１体目のエネミーがくっついたときの回転最高速度,BlockedEnemy,float,0.0,100.0,0.10000000149011612,0x8232B674
+sonic,0x098,EnemyBlockedRotationSpeedMaxDec,２体目以降のエネミーがくっついたときの回転最高速度の減少,BlockedEnemy,float,0.0,100.0,0.10000000149011612,0x8232B708
+sonic,0x099,EnemyBlockedSpringImpulseScale1,１体目、スプリングジャンプのスケール,BlockedEnemy,float,0.0,10.0,0.009999999776482582,0x8232B79C
+sonic,0x09A,EnemyBlockedSpringImpulseScaleDec,２体目以降、スプリングジャンプのスケール減少,BlockedEnemy,float,0.0,10.0,0.009999999776482582,0x8232B834
+sonic,0x09B,EnemyBlockedSpringImpulseMax1,１体目、スプリングジャンプの最大値,BlockedEnemy,float,0.0,10.0,0.009999999776482582,0x8232B8C8
+sonic,0x09C,EnemyBlockedSpringImpulseMaxDec,２体目以降、スプリングジャンプの最大値減少,BlockedEnemy,float,0.0,10.0,0.009999999776482582,0x8232B968
+sonic,0x09D,RotationForce0,回転力0,Rotation,float,0.0,1000.0,0.10000000149011612,0x823246EC
+sonic,0x09E,RotationForceVelocity0,回転力0 速度,Rotation,float,0.0,1000.0,0.10000000149011612,0x82324790
+sonic,0x09F,RotationForce1,回転力1,Rotation,float,0.0,1000.0,0.10000000149011612,0x82324828
+sonic,0x0A0,RotationForceVelocity1,回転力1 速度,Rotation,float,0.0,1000.0,0.10000000149011612,0x823248BC
+sonic,0x0A1,RotationSpeedMax,最大回転速度,Rotation,float,0.0,10000.0,1.0,0x82329AC0
+sonic,0x0A2,RotationForceInBoost,ブースト時の回転速度,Boost,float,0.0,10000.0,1.0,0x82327AF0
+sonic,0x0A3,-,-,-,float,-,-,-,0x82324B90
+sonic,0x0A4,-,-,-,float,-,-,-,0x82327B9C
+sonic,0x0A5,-,-,-,float,-,-,-,0x82327BB0
+sonic,0x0A6,-,-,-,float,-,-,-,0x82327BD0
+sonic,0x0A7,-,-,-,float,-,-,-,0x82327BEC
+sonic,0x0A8,-,-,-,float,-,-,-,0x82327C08
+sonic,0x0A9,-,-,-,float,-,-,-,0x82327C20
+sonic,0x0AA,-,-,-,float,-,-,-,0x82327C34
+sonic,0x0AB,-,-,-,float,-,-,-,0x82327C48
+sonic,0x0AC,-,-,-,float,-,-,-,0x82327C5C
+sonic,0x0AD,-,-,-,float,-,-,-,0x82327C70
+sonic,0x0AE,MaxUpSpeedWhenJump,ジャンプするときの、上方向の速度制限,Jump,float,0.0,1000.0,0.10000000149011612,0x82329D6C
+sonic,0x0AF,MaxUpSpeedWhenBound,跳ねるときの最大上速度,Other,float,0.0,500.0,0.10000000149011612,0x8232B044
+sonic,0x0B0,PrecedeJumpEnableTime,空中でのジャンプ先行入力可能時間,Jump,float,0.0,1.0,0.009999999776482582,0x82324E54
+sonic,0x0B1,FrontNoGroundStopSearchLength,この距離前方に地面が無ければ停止,NoGroundStop,float,0.0,100.0,0.10000000149011612,0x82327CD0
+sonic,0x0B2,FrontNoGroundStopMaxSpeed,この速度以下なら停止可能,NoGroundStop,float,0.0,100.0,0.10000000149011612,0x8232BA40
+sonic,0x0B3,FrontNoGroundStopMaxInput,入力がこれ以下なら停止可能,NoGroundStop,float,0.0,1.0,0.009999999776482582,0x82327D5C
+sonic,0x0B4,SideViewPushOutMinForce,押し出されてパスから外れる押し出し物の速度,Other,float,0.0,500.0,0.10000000149011612,0x8232D8CC
+sonic,0x0B5,SideViewPushOutRecoverStartTime,押し出された後復帰開始までの時間,Other,float,0.0,500.0,0.10000000149011612,0x8232D958
+sonic,0x0B6,KeepRunningMinVelocity,常にこの速度以上で走り続ける,KeepRunning,float,0.0,1000.0,0.10000000149011612,0x82327E34
+sonic,0x0B7,-,-,-,float,-,-,-,0x82327EC4
+sonic,0x0B8,KeepRunningDamageVelocityDecreaseRate,走り続けるモード時の減速量の元の速度に対する比率,KeepRunning,float,0.0,1.0,0.009999999776482582,0x82327ED8
+sonic,0x0B9,KeepRunningDamageTime,走り続けるモード時のダメージの隙時間,KeepRunning,float,0.0,100.0,0.009999999776482582,0x82327F64
+sonic,0x0BA,KeepRunningDamageInternalScale,走り続けモード時のダメージ中の操作スケール,KeepRunning,float,0.0,1.0,0.009999999776482582,0x82327FF4
+sonic,0x0BB,WallPushLimitInputIntensity,入力が壁方向にこれだけ入力していたら押す,WallPushing,float,0.0,1.0,0.009999999776482582,0x823280D4
+sonic,0x0BC,WallPushLimitCharacterAngle,キャラの向きが壁に対してこの角度以内なら、押す,WallPushing,float,0.0,90.0,1.0,0x82328164
+sonic,0x0BD,WallPushStartTime,押しモードに移行するまでの時間,WallPushing,float,0.0,10.0,0.009999999776482582,0x823281F8
+sonic,0x0BE,WallPushSpeed,押す最大早さ,WallPushing,float,0.0,100.0,0.009999999776482582,0x8232BB18
+sonic,0x0BF,WallPushForce,押す強さ,WallPushing,float,0.0,10000.0,0.10000000149011612,0x8232828C
+sonic,0x0C0,WalkSideMotionMinInput,走り中に傾きモーションになり始める入力,Motion,float,0.0,1.0,0.009999999776482582,0x82328364
+sonic,0x0C1,WalkSideMotionMaxInput,走り中に傾きモーションが最大になる入力,Motion,float,0.0,1.0,0.009999999776482582,0x823283FC
+sonic,0x0C2,WalkSideMotionMovePathScale,パスに沿うときの傾き傾きモーションが最大になる速度変化,Motion,float,0.0,1000.0,0.10000000149011612,0x82328488
+sonic,0x0C3,WalkSideMotionSensitive,傾きモーションの変化の早さ,Motion,float,0.0,100.0,0.009999999776482582,0x82328518
+sonic,0x0C4,WalkWallMotionSlopeAngleMin,斜面モーションになり始める傾き,Motion,float,0.0,90.0,0.10000000149011612,0x823285A8
+sonic,0x0C5,WalkWallMotionSlopeAngleMax,斜面モーションに完全になる傾き,Motion,float,0.0,90.0,0.10000000149011612,0x8232863C
+sonic,0x0C6,VelocityStrengthScale,壊れギミックを壊す速度のスケール,Physics,float,0.0,100.0,0.10000000149011612,0x8232AEC8
+sonic,0x0C7,SlopeVelocityKeepRate,起伏に対しての速度維持率(0.0 で補正なし),Velocity,float,0.0,1.0,0.009999999776482582,0x823295BC
+sonic,0x0C8,WallRunCancelVelocity,この速度以下になったら、壁走りをキャンセルする,SlopeRun,float,0.0,1000.0,1.0,0x8232A984
+sonic,0x0C9,WallRunCancelVelocityNoRun,この速度以下になったら、壁走りをキャンセルする(Brake),SlopeRun,float,0.0,900.0,1.0,0x8232AA28
+sonic,0x0CA,HomingAttackEnableVertUp,飛び出し時に上方向速度がこれ以上ならば、ホーミングアタック可能,HomingAttack,float,-100.0,100.0,0.009999999776482582,0x82325348
+sonic,0x0CB,PathBinrmCorrectionAngle,パスに寄せるときの上方向角度,Other,float,1.0,89.0,1.0,0x8232B0D8
+sonic,0x0CC,PathBinrmCorrectionOffset,パスに寄せるときに上方向,Other,float,0.0,100.0,0.5,0x8232B174
+sonic,0x0CD,VirtualStairsMax,描画用階段最大オフセット,Stairs,float,0.0,1000.0,0.009999999776482582,0x82328A30
+sonic,0x0CE,VirtualStairsEnableMaxVelocity,描画用階段が有効な速度,Stairs,float,0.0,1000.0,0.009999999776482582,0x82328ABC
+sonic,0x0CF,IdleActionTime,この時間何もしないとアクション,Other,float,0.0,1000.0,0.009999999776482582,0x82329014
+sonic,0x0D0,IdleSleepActionCount,この回数アクションした次はSleep,Other,t58,-,-,-,0x823290A4
+sonic,0x0D1,PadCorrectWhenCameraChangeAlwaysAccelTime,入力補正、強制加速時間,Input,float,0.0,1000.0,0.009999999776482582,0x82328B94
+sonic,0x0D2,PadCorrectWhenCameraChangeKeepTime,入力補正最長時間,Input,float,0.0,1000.0,0.009999999776482582,0x82328C24
+sonic,0x0D3,-,-,-,float,-,-,-,0x823256C0
+sonic,0x0D4,-,-,-,float,-,-,-,0x823256D4
+sonic,0x0D5,RingChaosEnergyIncreaseScale,リング取得時のカオスエナジーの増加量の速度に対するスケール,ChaosEnergy,float,0.0,1000.0,0.0010000000474974513,0x823256F4
+sonic,0x0D6,RingChaosEnergyIncreaseBias,リング取得時のカオスエナジーの増加量のバイアス(固定加算値）,ChaosEnergy,float,0.0,1000.0,0.0010000000474974513,0x82325788
+sonic,0x0D7,BoostEnableChaosEnergy,ブーストを使うのに最低必要なゲージ量,ChaosEnergy,float,0.0,1000.0,0.10000000149011612,0x82325814
+sonic,0x0D8,BoostFirstDecrease,ブーストを使った瞬間のゲージ減少量,ChaosEnergy,float,0.0,1000.0,0.10000000149011612,0x823258A8
+sonic,0x0D9,BoostTimeDecrease,ブーストの時間に対する減少量(1秒でどらだけ減るか）,ChaosEnergy,float,0.0,1000.0,0.009999999776482582,0x82325940
+sonic,0x0DA,BoostBeginCameraShakeSize,ブースト開始時のカメラの振動 サイズ,Boost,float,0.0,1.0,0.0010000000474974513,0x82325428
+sonic,0x0DB,BoostBeginCameraShakeTime,ブースト開始時のカメラの振動 時間,Boost,float,0.0,10.0,0.009999999776482582,0x823254BC
+sonic,0x0DC,BoostBeginCameraShakeCount,ブースト開始時のカメラの振動 回数,Boost,t58,-,-,-,0x8232554C
+sonic,0x0DD,BoostPullRadius,ブーストアイテム吸い込み半径(ステージ抜けて反映),Boost,float,0.0,10.0,0.009999999776482582,0x823255DC
+sonic,0x0DE,DebugIsNoDead,死なない,Damage,t18,-,-,-,0x8232EBFC
+sonic,0x0DF,DebugIsNoDamage,ダメージ受けない,Damage,t18,-,-,-,0x8232EC7C
+sonic,0x0E0,DebugIsNoDrown,溺れない,Damage,t18,-,-,-,0x8232ECFC
+sonic,0x0E1,ParaloopMaxLength,パラループ最大長さ,Paraloop,float,0.0,1000.0,0.10000000149011612,0x82328CFC
+sonic,0x0E2,ParaloopInterval,パラループ判定間隔,Paraloop,float,0.0,1000.0,0.009999999776482582,0x82328D88
+sonic,0x0E3,ParaloopMinSpeed,パラループキャンセル速度,Paraloop,float,0.0,1000.0,0.009999999776482582,0x82328E14
+mode,0x010,AccelerationForce,加速力,Velocity,float,0.0,100.0,0.10000000149011612,0x82383D48
+mode,0x011,DecelerationForceHigh,減速力,Velocity,float,0.0,100.0,0.10000000149011612,0x82383DD4
+mode,0x013,InAirForceAccelRate,空中での力の地上に対する割合。加速力,Velocity,float,0.0,100.0,0.009999999776482582,0x82383E60
+mode,0x014,InAirForceDecRate,空中での力の地上に対する割合。減速力,Velocity,float,0.0,100.0,0.009999999776482582,0x82383EF0
+mode,0x016,InAirMaxAccelVelocity,空中で加速可能な最大速度,Velocity,float,0.0,100.0,0.009999999776482582,0x82383F7C
+mode,0x026,BallJumpAirDragRateScale,ハイジャンプ時の空気抵抗の通常時に対する割合,Jump,float,0.0,10.0,0.009999999776482582,0x82384D40
+mode,0x027,-,-,-,t18,-,-,-,0x82383C4C
+mode,0x028,-,-,-,t18,-,-,-,0x823823F8
+mode,0x031,DownForceEfficient,ダウンフォースが重力と同じになる時の速度,SlopeRun,t00,0.0,10000000.0,0.10000000149011612,0x82382460
+mode,0x055,DynamicResistanceForceWhenRun,動抵抗力。走っているときに重力と力が釣り合う斜面の角度 ( 走り中 ),SlopeRun,float,0.0,90.0,0.10000000149011612,0x823826AC
+mode,0x056,DynamicResistanceForceWhenStand,動抵抗力。止まっているときに重力と力が釣り合う斜面の角度 ( 歩き中 ),SlopeRun,float,0.0,89.9000015258789,0.10000000149011612,0x8238258C
+mode,0x057,StaticResistanceForceWhenRun,静止抵抗力。走っているときに重力と力が釣り合う斜面の角度 ( 走り中 ),SlopeRun,float,0.0,90.0,0.10000000149011612,0x82382618
+mode,0x058,StaticResistanceForceWhenStand,静止抵抗力。止まっているときに重力と力が釣り合う斜面の角度 ( 歩き中 ),SlopeRun,float,0.0,89.9000015258789,0.10000000149011612,0x823824F8
+mode,0x05B,StaticFrictionalForce,静止摩擦力。,SlopeRun,float,0.0,90.0,0.10000000149011612,0x82382740
+mode,0x05C,DynamicFrictionalForce,動摩擦力。,SlopeRun,float,0.0,90.0,0.10000000149011612,0x823827D0
+mode,0x078,MoveEnableGroundAngleInner,移行可能な角度 (内周) ,SlopeRun,float,0.0,100.0,0.009999999776482582,0x82382E84
+mode,0x079,MoveEnableGroundAngleOuter,移行可能な角度 (外周) ,SlopeRun,float,0.0,100.0,0.009999999776482582,0x82382F10
+mode,0x07A,MoveEnableSearchDistance,地面をサーチする時の分割単位,SlopeRun,float,0.0,100.0,0.009999999776482582,0x82382F9C
+mode,0x087,MaxHorzVelocity,地面最高速度(いかなる場合もこの速度を超えません),Velocity,float,0.0,1000.0,0.10000000149011612,0x82383CB4
+mode,0x09D,RotationForce0,回転力0,Rotation,float,0.0,1000.0,0.10000000149011612,0x8238294C
+mode,0x09E,RotationForceVelocity0,回転力0 速度,Rotation,float,0.0,1000.0,0.10000000149011612,0x823829E0
+mode,0x09F,RotationForce1,回転力1,Rotation,float,0.0,1000.0,0.10000000149011612,0x82382A74
+mode,0x0A0,RotationForceVelocity1,回転力1 速度,Rotation,float,0.0,1000.0,0.10000000149011612,0x82382B08
+mode,0x0A1,RotationSpeedMax,回転速度 最大,Rotation,float,0.0,10000.0,1.0,0x82382BA4
+mode,0x0A2,RotationForceInBoost,ブースト時の回転速度,Boost,float,0.0,10000.0,0.10000000149011612,0x82382DAC
+mode,0x0AE,-,-,-,float,-,-,-,0x82384DD4
+mode,0x0B6,KeepRunningMinVelocity,常にこの速度以上で走り続ける,KeepRunning,float,0.0,1000.0,0.10000000149011612,0x82384884
+mode,0x0B9,KeepRunningDamageTime,走り続けるモード時のダメージの隙時間,KeepRunning,float,0.0,100.0,0.009999999776482582,0x82384910
+mode,0x0E4,-,-,-,float,-,-,-,0x8237D174
+mode,0x0E5,-,-,-,t00,-,-,-,0x8237A924
+mode,0x0E6,-,-,-,float,-,-,-,0x8237A940
+mode,0x0E7,-,-,-,float,-,-,-,0x8237A95C
+mode,0x0E8,FinishSlidingVelocity,この速度以下になったらスライディングが終了,Squat_Sliding,float,0.0,10000.0,0.009999999776482582,0x82380750
+mode,0x0E9,SquatToSlidingSlope,しゃがみからスライディングに移行する斜面の角度（この角度以上ならしゃがみからスライディングに移行する）,Squat_Sliding,float,0.0,90.0,0.10000000149011612,0x8237AAE0
+mode,0x0EA,SlidingBrakeForce,スライディング中のブレーキの力,Squat_Sliding,float,0.0,100.0,0.009999999776482582,0x8237A978
+mode,0x0EB,SlidingMinTime,スライディングの最小時間,Squat_Sliding,float,0.0,100.0,0.009999999776482582,0x8237AA2C
+mode,0x0EC,-,-,-,float,-,-,-,0x8237AAC4
+mode,0x0ED,-,-,-,float,-,-,-,0x8237B374
+mode,0x0EE,-,-,-,float,-,-,-,0x8237B388
+mode,0x0EF,-,-,-,float,-,-,-,0x8237B3A4
+mode,0x0F0,-,-,-,float,-,-,-,0x8237B3B8
+mode,0x0F1,RunQuickStepMoveDistance,走り中のクイックステップの横移動量,QuickStep,float,0.0,100.0,0.009999999776482582,0x8237B41C
+mode,0x0F2,-,-,-,float,-,-,-,0x8237B3CC
+mode,0x0F3,-,-,-,float,-,-,-,0x8237B3E0
+mode,0x0F4,-,-,-,float,-,-,-,0x8237B3F4
+mode,0x0F5,-,-,-,float,-,-,-,0x8237B408
+mode,0x0F6,IncreaseMaxVelocityRingNum,リングがこの枚数ごとに最高速度がアップする,Velocity,t98,-,-,-,0x8237EEF8
+mode,0x0F7,IncreaseChaosEnergyDriftStart,ドリフト開始時のカオスエナジー増加量,ChaosEnergy,float,0.0,1000.0,0.10000000149011612,0x8237B04C
+mode,0x0F8,IncreaseChaosEnergyDriftPerSecond,ドリフト中1秒間のカオスエナジー増加量,ChaosEnergy,float,0.0,1000.0,0.0010000000474974513,0x8237B0D8
+mode,0x0F9,MaxVelocityIncrementBy100,リング 100 枚までの速度アップ値,Velocity,float,0.0,100.0,0.009999999776482582,0x8237EF90
+mode,0x0FA,MaxVelocityIncrementBy200,リング 200 枚までの速度アップ値,Velocity,float,0.0,100.0,0.009999999776482582,0x8237F054
+mode,0x0FB,MaxVelocityIncrementOver200,リング 200 Over の速度アップ値,Velocity,float,0.0,100.0,0.009999999776482582,0x8237F118
+mode,0x0FC,MaxVelocityBasis,最高速度 ( リング 0 枚時 ),Velocity,float,0.0,100.0,1.0,0x8237EE30
+mode,0x0FD,MaxVelocityFinalMax,最高速度の最大値,Velocity,float,0.0,1000.0,0.10000000149011612,0x8237F1E8
+mode,0x0FE,-,-,-,float,-,-,-,0x8237F2AC
+mode,0x100,BoostMaxVelocityScaleLv0,ブースト時の最高速度の通常時に対する割合,Boost,float,0.0,10.0,0.0010000000474974513,0x8237FEB4
+mode,0x101,BoostMaxVelocityScaleLvMax,ブースト時の最高速度の通常時に対する割合,Boost,float,0.0,10.0,0.0010000000474974513,0x8237FF74
+mode,0x102,BoostAccelerationForce,ブースト中の加速力,Boost,float,0.0,1000.0,0.10000000149011612,0x823800D8
+mode,0x103,BoostAccelerationForceWhenSlow,ブースト中の加速力( 速度が最低速度より遅いとき ),Boost,float,0.0,1000.0,0.10000000149011612,0x82380170
+mode,0x104,BoostMinVelocity,この速度以下になったらブーストを強制終了,Boost,float,0.0,1000.0,0.10000000149011612,0x82380204
+mode,0x105,BoostStartVelocityRate,ブーストを使った瞬間の最低速度のリング0枚の最高速度に対する割合,Boost,float,0.0,100.0,0.009999999776482582,0x82380038
+mode,0x106,BoostCancelBrakeTime,この時間以上ブレーキをしたらブーストキャンセル,Boost,float,0.0,10.0,0.009999999776482582,0x82380298
+mode,0x107,BoostInAirKeepTime,地上ブースト中に空中に飛び出した後の持続時間,Boost,float,0.0,1000.0,0.009999999776482582,0x8238032C
+mode,0x108,AirBoostEnableChaosEnergy,エアブーストを使うのに最低必要なゲージ量,ChaosEnergy,float,0.0,1000.0,0.10000000149011612,0x8237B174
+mode,0x109,AirBoostFirstDecrease,エアブーストを使った瞬間のゲージ減少量,ChaosEnergy,float,0.0,1000.0,0.10000000149011612,0x8237B200
+mode,0x10A,-,-,-,t00,-,-,-,0x823806F8
+mode,0x10B,AirBoostStartVelocityRate,エアーストを使った瞬間の最低速度のリング0枚の最高速度に対する割合,AirBoost,float,0.0,100.0,0.009999999776482582,0x823804A8
+mode,0x10C,AirBoostGravityRate,エアブースト時の重量の通常時に対するスケール,AirBoost,float,0.0,100.0,0.009999999776482582,0x82380538
+mode,0x10D,AirBoostLevitationForce,エアブースト時の浮遊力,AirBoost,float,0.0,100.0,0.009999999776482582,0x823805CC
+mode,0x10E,AirBoostLevitationTime,エアブースト時の浮遊力の持続時間,AirBoost,float,0.0,100.0,0.009999999776482582,0x82380660
+mode,0x10F,AirBoostTime,エアブーストの持続時間,AirBoost,float,0.0,100.0,0.009999999776482582,0x82380414
+mode,0x110,AirBoostDisableTimeAfterSpinAttack,スピンアタック後のエアブーストの禁止時間,ChaosEnergy,float,0.0,100.0,0.009999999776482582,0x8237B28C
+mode,0x111,-,-,-,float,-,-,-,0x8237D8B8
+mode,0x112,HomingSpeed,ホーミングの速度,HomingAttack,float,1.0,100.0,0.10000000149011612,0x8237F308
+mode,0x113,HomingInertiaForceRate,ホーミングの速度に加える元の速度の割合,HomingAttack,float,0.0,1.0,0.009999999776482582,0x8237F39C
+mode,0x114,HomingNoLockonKeepTime,ホーミングでロックオンしなかった場合の、継続時間,HomingAttack,float,0.0,10.0,0.009999999776482582,0x8237F434
+mode,0x115,HomingAttackAfterUpVelocity,ホーミングアタックでヒットした後の上方向への初期速度,HomingAttack,float,0.0,100.0,0.10000000149011612,0x8237F4D4
+mode,0x116,ActionEnableAfterHomingAttack,ホーミングアタック成功後、何秒後に空中アクションが可能になるか,HomingAttack,float,0.0,100.0,0.009999999776482582,0x8237D054
+mode,0x117,HomingAttackEnableAfterFall,飛び出し後、何秒後にホーミングアタックが可能になるか。,HomingAttack,float,0.0,100.0,0.009999999776482582,0x8237D0E0
+mode,0x118,HomingBackEnableSpeed,後ろにホーミングアタック可能な最高速度,HomingAttack,float,0.0,100.0,0.10000000149011612,0x8237F568
+mode,0x119,BorderTimeOfBrakeCancelForStartDrift,この時間以内にブレーキをキャンセルすればドリフトへ,Drift,float,0.0,10.0,0.009999999776482582,0x8237D284
+mode,0x11A,-,-,-,float,-,-,-,0x8237D26C
+mode,0x11B,StartDriftInputAngleBorder,横方向に対して、この角度以内の入力の時に、ドリフト発動,Drift,float,0.0,180.0,1.0,0x8237D314
+mode,0x11C,StartDriftFromSlidingBorder,この時間以内ならばスライディングからドリフトへ,Drift,float,0.0,10.0,0.009999999776482582,0x8237D1E0
+mode,0x11D,-,-,-,t00,-,-,-,0x8237CFC4
+mode,0x11E,-,-,-,t00,-,-,-,0x8237CFE8
+mode,0x11F,-,-,-,float,-,-,-,0x8237CFFC
+mode,0x120,SpinAttackAfterUpVelocity,スピンアタックでヒットした後の上方向への初期速度,SpinAttack,float,0.0,100.0,0.10000000149011612,0x8237CCF8
+mode,0x121,StompingDownFirstVelocity,初期速度,Stomping,float,0.0,1000.0,1.0,0x8237CDD0
+mode,0x122,-,-,-,float,-,-,-,0x8237CE5C
+mode,0x123,-,-,-,float,-,-,-,0x8237CE70
+mode,0x124,StompingDisableTime,操作不能時間,Stomping,float,0.0,1.0,0.009999999776482582,0x8237CE8C
+mode,0x125,StompingHorzDecForce,水平減速力,Stomping,float,0.0,100000.0,0.009999999776482582,0x8237CF24
+mode,0x126,XButtonHoming,Xボタンによるホーミング,HomingAttack,t18,-,-,-,0x8237AC98
+mode,0x127,HomingRotateForce,Homing 時の回転向き変更用の力,HomingAttack,float,0.0,100.0,0.10000000149011612,0x8237AD18
+mode,0x128,IsHomingLockonCollisionEdit,HomingAttackコリジョンのデバッグ表示切り替え,HomingAttack,t18,-,-,-,0x8237F84C
+mode,0x129,HomingLockonCollisionAspect,HomingLockon コリジョンアスペクト比,HomingAttack,float,0.0,10.0,0.009999999776482582,0x8237F9A4
+mode,0x12A,HomingLockonCollisionFovy,HomingLockon コリジョン視野角,HomingAttack,float,0.0,360.0,1.0,0x8237F8E0
+mode,0x12B,HomingLockonCollisionNear,HomingLockon コリジョンNearPlane,HomingAttack,float,0.0,100.0,0.10000000149011612,0x8237FA6C
+mode,0x12C,HomingLockonCollisionFar,HomingLockon コリジョンFarPlane,HomingAttack,float,0.0,1000.0,0.10000000149011612,0x8237FB30
+mode,0x12D,HomingLockonCollisionRotationX,HomingLockon コリジョン X回転,HomingAttack,float,-180.0,180.0,0.10000000149011612,0x8237FC00
+mode,0x12E,HomingLockonCollisionOffsetX,HomingLockon コリジョン OffsetX,HomingAttack,float,-10.0,10.0,0.009999999776482582,0x8237FCD0
+mode,0x12F,HomingLockonCollisionOffsetY,HomingLockon コリジョン OffsetY,HomingAttack,float,-10.0,10.0,0.009999999776482582,0x8237FDA0
+mode,0x130,HomingLockonKeepUpSlope,ホーミングロックオン継続、上傾斜,HomingAttack,float,-10.0,10.0,0.009999999776482582,0x8237F5FC
+mode,0x132,HomingLockonKeepDownSlope,ホーミングロックオン継続、下傾斜,HomingAttack,float,-10.0,10.0,0.009999999776482582,0x8237F690
+mode,0x133,HomingLockonKeepDownOffset,ホーミングロックオン継続、下Offset,HomingAttack,float,-10.0,10.0,0.009999999776482582,0x8237F724
+mode,0x134,HomingLockonKeepBack,ホーミングロックオン継続 後ろ,HomingAttack,float,-10.0,10.0,0.009999999776482582,0x8237F7B8
+mode,0x135,IsLightSpeedDashStartCollisionEdit,開始時のライトスピードダッシュコリジョンのデバッグ表示切り替え,LightSpeedDash,t18,-,-,-,0x8237BEC8
+mode,0x136,LightSpeedDashStartCollisionAspect,開始時のサーチコリジョンのアスペクト比,LightSpeedDash,float,0.0,10.0,0.009999999776482582,0x8237C00C
+mode,0x137,LightSpeedDashStartCollisionFovy,開始時のサーチコリジョンのFovy,LightSpeedDash,float,0.0,360.0,1.0,0x8237BF48
+mode,0x138,LightSpeedDashStartCollisionNear,開始時のサーチコリジョンのNearPlane,LightSpeedDash,float,0.0,100.0,0.10000000149011612,0x8237C0C8
+mode,0x139,LightSpeedDashStartCollisionFar,開始時のサーチコリジョンのFarPlane,LightSpeedDash,float,0.0,1000.0,0.10000000149011612,0x8237C190
+mode,0x13A,LightSpeedDashStartCollisionRotationX,開始時のサーチコリジョンの X回転,LightSpeedDash,float,-180.0,180.0,0.10000000149011612,0x8237C24C
+mode,0x13B,LightSpeedDashStartCollisionOffsetX,開始時のサーチコリジョンの OffsetX,LightSpeedDash,float,-10.0,10.0,0.009999999776482582,0x8237C324
+mode,0x13C,LightSpeedDashStartCollisionOffsetY,開始時のサーチコリジョンの OffsetY,LightSpeedDash,float,-10.0,10.0,0.009999999776482582,0x8237C3E8
+mode,0x13D,IsLightSpeedDashCollisionEdit,ライトスピードダッシュコリジョンのデバッグ表示切り替え,LightSpeedDash,t18,-,-,-,0x8237C4A4
+mode,0x13E,LightSpeedDashCollisionAspect,サーチコリジョンのアスペクト比,LightSpeedDash,float,0.0,10.0,0.009999999776482582,0x8237C5E0
+mode,0x13F,LightSpeedDashCollisionFovy,サーチコリジョンのFovy,LightSpeedDash,float,0.0,360.0,1.0,0x8237C524
+mode,0x140,LightSpeedDashCollisionNear,サーチコリジョンのNearPlane,LightSpeedDash,float,0.0,100.0,0.10000000149011612,0x8237C69C
+mode,0x141,LightSpeedDashCollisionFar,サーチコリジョンのFarPlane,LightSpeedDash,float,0.0,1000.0,0.10000000149011612,0x8237C75C
+mode,0x142,LightSpeedDashCollisionRotationX,サーチコリジョンの X回転,LightSpeedDash,float,-180.0,180.0,0.10000000149011612,0x8237C818
+mode,0x143,LightSpeedDashCollisionOffsetX,サーチコリジョンの OffsetX,LightSpeedDash,float,-10.0,10.0,0.009999999776482582,0x8237C8D8
+mode,0x144,LightSpeedDashCollisionOffsetY,サーチコリジョンの OffsetY,LightSpeedDash,float,-10.0,10.0,0.009999999776482582,0x8237C994
+mode,0x145,LightSpeedDashMinVelocity,最低速度,LightSpeedDash,float,0.0,1000.0,0.10000000149011612,0x8237CA54
+mode,0x146,LightSpeedDashMaxVelocity,最高速度,LightSpeedDash,float,0.0,1000.0,0.10000000149011612,0x8237CAEC
+mode,0x147,LightSpeedDashHoldTime,ボタン押しっぱなしにする時間,LightSpeedDash,float,0.0,1.0,0.009999999776482582,0x8237CC18
+mode,0x148,LightSpeedDashEnableAngle,継続可能角度,LightSpeedDash,float,0.0,180.0,0.10000000149011612,0x8237CB84
+mode,0x149,IsLightSpeedDashHoldMode,押して離すか、押した瞬間に発動か。,LightSpeedDash,t18,-,-,-,0x8237BE48
+mode,0x14A,-,-,-,float,-,-,-,0x8237AB84
+mode,0x14B,GrindAutoForce,グラインド時の自動加速力,Grind,float,0.0,100.0,0.10000000149011612,0x8237B504
+mode,0x14C,GrindMinSpeed,グラインド時の最低速度,Grind,float,0.0,100.0,0.10000000149011612,0x8237B590
+mode,0x14D,GrindBeginMinSpeed,グラインド開始時の最低速度,Grind,float,0.0,100.0,0.10000000149011612,0x8237B61C
+mode,0x14E,GrindDamageTime,グラインドダメージの時間,Grind,float,0.0,100.0,0.009999999776482582,0x8237B6A8
+mode,0x14F,GrindDamageVelocityDecreaseRate,グラインドダメージの減速率,Grind,float,0.0,1.0,0.009999999776482582,0x8237B734
+mode,0x150,GrindJumpSideMaxDistance,グラインド移動ジャンプの最大移動距離,Grind,float,0.0,10.0,0.009999999776482582,0x8237B7C0
+mode,0x151,GrindJumpSideSearchFrontOffsetTime,グラインド移動ジャンプの再度グラインドサーチ前方オフセット時間,Grind,float,0.0,10.0,0.009999999776482582,0x8237B84C
+mode,0x152,GrindSideJumpForce,グラインド移動ジャンプ力,Grind,float,0.0,100.0,0.009999999776482582,0x8237B8D8
+mode,0x153,GrindCurveDecreaseForce,グラインドカーブ減速(1ならばフル減速。0ならば減速なし),Grind,float,0.0,1000.0,0.10000000149011612,0x82380924
+mode,0x154,GrindJumpShortReleaseTime,ジャンプボタンをこの時間以内に放したらショートジャンプ,Grind,float,0.0,1.0,0.009999999776482582,0x8237BBB8
+mode,0x155,GrindJumpPowerMin,最小グラインドジャンプ力,Grind,float,0.0,100.0,0.10000000149011612,0x8237BC4C
+mode,0x156,GrindStumbleLimit,ふらふらになる重心ずれ,Grind,float,0.0,1.0,0.009999999776482582,0x8237BCE0
+mode,0x157,GrindStumbleLimitTime,この時間以上重心がずれていたらふらふら,Grind,float,0.0,100.0,0.009999999776482582,0x8237BD6C
+mode,0x15A,StompingStrength,ストンピングの力 ( 押す力 ),Physics,float,0.0,100000.0,1.0,0x8237DFF0
+mode,0x15B,BoostStrength,Boost の力 ( 押す力 ),Physics,float,0.0,10000000.0,1.0,0x8237DF2C
+mode,0x15C,DriftAngleReturnForce,向きを速度に合わせようとする力,Drift,float,0.0,100.0,0.009999999776482582,0x8237D3A4
+mode,0x15D,DriftSideAngleForce,横向きの角度変更力,Drift,float,0.0,100.0,0.009999999776482582,0x8237D43C
+mode,0x15E,DriftFrontAngleForce,縦向きの角度変更力,Drift,float,0.0,100.0,0.009999999776482582,0x8237D4C8
+mode,0x15F,DriftMaxAngleVelocity,最大角速度,Drift,float,0.0,100.0,0.009999999776482582,0x8237D55C
+mode,0x160,DriftSideDecForce,横速度減速力,Drift,float,0.0,100.0,0.009999999776482582,0x8237D5E8
+mode,0x161,DriftFrontAccelForceRate,前方加速力 (通常時に対する割合),Drift,float,0.0,100.0,0.009999999776482582,0x8237D674
+mode,0x162,DriftFinishAngle,パッドが前方で、角度がこれ以下になったら終了,Drift,float,0.0,100.0,0.009999999776482582,0x8237D700
+mode,0x163,DriftFinishSideVelocity,横速度がこれ以下になったら終了,Drift,float,0.0,100.0,0.009999999776482582,0x8237D78C
+mode,0x164,DriftBoostYawOffset,ドリフト中のブーストの向きのYaw オフセット,Drift,float,-360.0,360.0,1.0,0x8237D820
+mode,0x165,EnemyBlockedMaxSquatVelocity,エネミーがくっついたときのしゃがみの最高速度,BlockedEnemy,float,0.0,100.0,0.009999999776482582,0x8238084C
+mode,0x166,-,-,-,float,-,-,-,0x8237D8CC
+mode,0x168,GrindSEMinPitch,グラインド中のSE 最小ピッチ,Grind,float,-1000.0,1000.0,0.10000000149011612,0x8237B96C
+mode,0x169,GrindSEMinPitchVelocity,グラインド中のSE 最小ピッチになる速度,Grind,float,0.0,100.0,0.009999999776482582,0x8237BA00
+mode,0x16A,GrindSEMaxPitch,グラインド中のSE 最大ピッチ,Grind,float,-1000.0,1000.0,0.10000000149011612,0x8237BA8C
+mode,0x16B,GrindSEMaxPitchVelocity,グラインド中のSE 最大ピッチになる速度,Grind,float,0.0,100.0,0.009999999776482582,0x8237BB24
+mode,0x16C,DashModePathCorrectSideSpeed,パス補正時の横移動速度,Rotation,float,0.0,10000.0,1.0,0x8237ED48
+mode,0x16D,DashModePathCorrectSideSpeedDigital,パス補正時の横移動速度(digital),Rotation,float,0.0,10000.0,1.0,0x8237ED5C
+mode,0x16E,DivingRotationMax,傾き最大値,Diving,float,0.0,1000.0,0.10000000149011612,0x8237E234
+mode,0x16F,DivingDiveBeginHorzVelocityRate,ダイブ開始時の水平速度減少,Diving,float,0.0,1.0,0.009999999776482582,0x8237E35C
+mode,0x170,DivingDiveBeginGravityScale,ダイブ中のの重力スケール,Diving,float,0.0,100.0,0.10000000149011612,0x8237E3E8
+mode,0x171,DivingDiveMaxVelocityDown,ダイブ時の速度,Diving,float,0.0,1000.0,0.10000000149011612,0x8237E2C4
+mode,0x172,DivingDiveVelocitySide,ダイブ時の左右移動の速度係数,Diving,float,0.0,1000.0,0.10000000149011612,0x8237E480
+mode,0x173,DivingDiveVelocityFront,ダイブ時の前後移動の速度係数,Diving,float,0.0,1000.0,0.10000000149011612,0x8237E50C
+mode,0x174,DivingDiveEndSpeed,ダイブ終了後の初期速度,Diving,float,0.0,1000.0,0.10000000149011612,0x8237E744
+mode,0x175,DivingFloatMaxVelocityDown,浮遊時の速度,Diving,float,0.0,1000.0,0.10000000149011612,0x8237E598
+mode,0x176,DivingFloatVelocitySide,浮遊時の左右移動の速度係数,Diving,float,0.0,1000.0,0.10000000149011612,0x8237E62C
+mode,0x177,DivingFloatVelocityFront,浮遊時の前後移動の速度係数,Diving,float,0.0,1000.0,0.10000000149011612,0x8237E6B8
+mode,0x178,DivingDamageVelocityDecreaseRate,ダイビングダメージの減速率,Diving,float,0.0,1.0,0.009999999776482582,0x8237E7D0
+mode,0x179,DivingDamageTime,ダイイングダメージの時間,Diving,float,0.0,100.0,0.009999999776482582,0x8237E85C
+mode,0x17A,ItemCollisionHeightInDiving,アイテム コリジョン 高さ in Diving ( リアルタイムでは反映されません ),Collision,float,0.0,100.0,0.009999999776482582,0x8237E15C
+mode,0x17B,ItemCollisionRadiusInDiving,アイテム コリジョン半径 in Diving( リアルタイムでは反映されません ),Collision,float,0.0,100.0,0.009999999776482582,0x8237E0D0
+mode,0x17C,RingDropMin,落とす最小枚数,Item,t58,-,-,-,0x8237ADF4
+mode,0x17D,-,-,-,float,-,-,-,0x8237D188
+mode,0x17E,MotionStandToWalk,StandToWalk,Motion,float,0.0,100.0,0.009999999776482582,0x8237D92C
+mode,0x17F,MotionWalkToWalkFast,WalkToWalkFast,Motion,float,0.0,100.0,0.009999999776482582,0x8237D9C4
+mode,0x180,MotionWalkFastToJog,WalkFastToJog,Motion,float,0.0,100.0,0.009999999776482582,0x8237DA50
+mode,0x181,MotionJogToRun,JogToRun,Motion,float,0.0,100.0,0.009999999776482582,0x8237DADC
+mode,0x182,MotionRunToDash,RunToDash,Motion,float,0.0,100.0,0.009999999776482582,0x8237DB70
+mode,0x183,MotionDashToJet,DashToJet,Motion,float,0.0,100.0,0.009999999776482582,0x8237DC04
+mode,0x184,HurdleFirstAnimSpeed,ハードルジャンプモーション、初期速度,Hurdle,float,0.10000000149011612,10.0,0.009999999776482582,0x8237DDB8
+mode,0x185,HurdleReleaseAnimSpeed,ハードルジャンプモーション、はなした速度,Hurdle,float,0.10000000149011612,10.0,0.009999999776482582,0x8237DE4C
+mode,0x186,IsEnableBoost3DEffect,Boost ポリゴンエフェクトありなし,Boost,t18,-,-,-,0x8237AED4
+mode,0x187,-,-,-,t00,-,-,-,0x8237AF58
+mode,0x188,BoostEndKeepTime,ブースト終了後の持続時間,Boost,float,0.0,1000.0,0.009999999776482582,0x8237AF6C
+mode,0x189,SquatKickInputTime,しゃがみ終了後この時間以内でキック,Squat_Sliding,float,0.0,10.0,0.009999999776482582,0x8237ABA4
+mode,0x18A,DamageFreezeAirKeepTime,空中停止時間,DamageFreeze,float,0.0,100.0,0.009999999776482582,0x8237E99C
+mode,0x18B,DamageFreezeTime,全停止時間,DamageFreeze,float,0.0,100.0,0.009999999776482582,0x8237EA30
+mode,0x18C,DamageFreezeReflectEfficient,反射係数,DamageFreeze,float,0.0,1.0,0.0010000000474974513,0x8237EAC0
+mode,0x18D,DamageShockTime,全停止時間,DamageShock,float,0.0,100.0,0.009999999776482582,0x8237EB98
+mode,0x18E,DamageFireTime,エフェクト出ている時間,DamageFire,float,0.0,100.0,0.009999999776482582,0x8237EC6C
+mode,0x18F,EnemyComboTime,コンボ継続時間,EnemyCombo,float,0.0,100.0,0.009999999776482582,0x8237DCDC
+mode,0x190,-,Count,-,td8,-,-,-,0x82385170
+mode,0x191,-,MeshPointCount,-,td8,-,-,-,0x82385204
+mode,0x192,WindEffectRandAmplitude,RandAmplitude,Wind,float,0.0,1.0,0.009999999776482582,0x82385320
+mode,0x193,WindEffectRandFrequency,RandFrequency,Wind,float,0.0,1.0,0.009999999776482582,0x823853AC
+mode,0x194,WindEffectDirOffset,DirOffset,Wind,float,0.0,10.0,0.009999999776482582,0x82385294
+mode,0x195,WindEffectSpeedMin,SpeedMin,Wind,float,0.0,100.0,0.10000000149011612,0x82385438
+mode,0x196,WindEffectSpeedMax,SpeedMax,Wind,float,0.0,100.0,0.10000000149011612,0x823854C8
+mode,0x197,WindEffectWidth,Width,Wind,float,0.0,100.0,0.10000000149011612,0x82385558
+mode,0x198,WindEffectWidthRand,WidthRand,Wind,float,0.0,100.0,0.009999999776482582,0x823855E8
+mode,0x199,WindEffectLife,Life,Wind,float,0.0,10.0,0.009999999776482582,0x82385678
+mode,0x19A,WindEffectLifeRand,LifeRand,Wind,float,0.0,10.0,0.009999999776482582,0x82385708
+mode,0x19B,WindEffectIntervalTime,IntervalTime,Wind,float,0.0,10.0,0.009999999776482582,0x82385798
+mode,0x19C,WindEffectStartPosRange,StartPosRange,Wind,float,0.0,1.0,0.009999999776482582,0x8238582C
+mode,0x19D,-,SplinePosCount,-,td8,-,-,-,0x82385900
+mode,0x19E,HomingAttackEffectLife,Life,HomingAttack,float,0.0,100.0,0.10000000149011612,0x8238598C
+mode,0x19F,HomingAttackEffectWidth,Width,HomingAttack,float,0.0,10.0,0.009999999776482582,0x82385A14
+mode,0x1A0,-,Count,-,td8,-,-,-,0x82385AEC
+mode,0x1A1,SparkleEffectLife,Life,Sparkle,float,0.0,100.0,0.10000000149011612,0x82385B74
+mode,0x1A2,SparkleEffectLifeRand,LifeRand,Sparkle,float,0.0,100.0,0.009999999776482582,0x82385BFC
+mode,0x1A3,SparkleEffectWidth,Width,Sparkle,float,0.0,10.0,0.009999999776482582,0x82385C8C
+mode,0x1A4,SparkleEffectWidthRand,WidthRand,Sparkle,float,0.0,10.0,0.009999999776482582,0x82385D14
+mode,0x1A5,SparkleEffectSpeedMin,SpeedMin,Sparkle,float,0.0,100.0,0.10000000149011612,0x82385D9C
+mode,0x1A6,SparkleEffectSpeedMax,SpeedMax,Sparkle,float,0.0,100.0,0.10000000149011612,0x82385E24
+mode,0x1A7,-,MeshPointCount,-,td8,-,-,-,0x82385FCC
+mode,0x1A8,SparkleEffectRandDir,RandDir,Sparkle,float,0.0,10.0,0.009999999776482582,0x82385EAC
+mode,0x1A9,SparkleEffectRandSpeed,RandSpeed,Sparkle,float,0.0,10.0,0.10000000149011612,0x82385F3C
+mode,0x1AA,SparkleEffectIntervalTime,IntervalTime,Sparkle,float,0.0,10.0,0.009999999776482582,0x82386054
+common,0x000,IsPlayOldSE,以前のSEをならすかどうか,Sound,t18,-,-,-,0x8230DE8C
+common,0x001,IsPlayNewSE,新しいSEをならすかどうか,Sound,t18,-,-,-,0x8230DF0C
+common,0x002,ForceGroundAttribute,強制的に地形の属性を変える ( 0 ならば通常モード ),Common,t98,-,-,-,0x8230DCC8
+common,0x003,ForceResultRank,強制的にリザルトのランクを変える ( 0 ならば通常モード ),Common,t98,-,-,-,0x8230DD54
+common,0x004,IsTalkTargetCollisionEdit,話しかける対象サーチコリジョンのデバッグ表示切り替え,Talk,t18,-,-,-,0x8230E07C
+common,0x005,TalkTargetCollisionAspect,話しかける対象 コリジョンアスペクト比,Talk,float,0.0,10.0,0.009999999776482582,0x8230E1C4
+common,0x006,TalkTargetCollisionFovy,話しかける対象 コリジョン視野角,Talk,float,0.0,360.0,1.0,0x8230E104
+common,0x007,TalkTargetCollisionNear,話しかける対象 コリジョンNearPlane,Talk,float,0.0,100.0,0.10000000149011612,0x8230E280
+common,0x008,TalkTargetCollisionFar,話しかける対象 コリジョンFarPlane,Talk,float,0.0,1000.0,0.10000000149011612,0x8230E338
+common,0x009,TalkTargetCollisionRotationX,話しかける対象 コリジョン X回転,Talk,float,-180.0,180.0,0.10000000149011612,0x8230E3E0
+common,0x00A,TalkTargetCollisionOffsetX,話しかける対象 コリジョン OffsetX,Talk,float,-10.0,10.0,0.009999999776482582,0x8230E494
+common,0x00B,TalkTargetCollisionOffsetY,話しかける対象 コリジョン OffsetY,Talk,float,-10.0,10.0,0.009999999776482582,0x8230E548
+common,0x00C,InputThreshold,入力閾値,Input,float,0.0,1.0,0.0010000000474974513,0x8230E8F8

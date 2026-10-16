@@ -1,0 +1,8 @@
+[package]
+name = "asset-inspector"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow.workspace = true
+unleashed-assets = { path = "../../crates/unleashed-assets" }

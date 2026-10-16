@@ -1,0 +1,4 @@
+# The lifted guest code (crates/unleashed-guest) has functions big enough to overflow
+# rustc's default stack (STATUS_ACCESS_VIOLATION while compiling).
+[env]
+RUST_MIN_STACK = "536870912"

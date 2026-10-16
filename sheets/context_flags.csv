@@ -1,0 +1,7 @@
+index,name,evidence,doc
+3,frozen,sub_82320820;sub_82349538,No turning or velocity changes.
+14,boosting,sub_823472A0;sub_8234C5F8,Boost.
+22,rotation_force_blend,sub_823472A0,Blend the rotation force toward a fixed value.
+26,no_pad_stop_walk,sub_82349ED8;sub_82349D88,NoPadStopWalk.
+31,keep_running,sub_82320820,KeepRunning.
+37,keep_facing,sub_82349538,Facing is not turned.

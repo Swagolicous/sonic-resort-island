@@ -1,0 +1,16 @@
+[package]
+name = "unleashed-minecraft"
+version = "0.1.0"
+edition = "2024"
+description = "A Minecraft world for Sonic: MinecraftOSS terrain streaming, meshes, light and block collision."
+
+[dependencies]
+minecraft_terrain = { path = "../../third_party/minecraft_terrain" }
+minecraftoss-core = { path = "../../third_party/minecraftoss/core" }
+minecraftoss-world = { path = "../../third_party/minecraftoss/world" }
+flate2 = "1"
+sha1 = "0.10"
+serde_json = "1"
+zip = { version = "2", default-features = false, features = ["deflate"] }
+glam = "0.29"
+anyhow.workspace = true

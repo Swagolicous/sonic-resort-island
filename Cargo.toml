@@ -1,0 +1,51 @@
+[package]
+name = "unleashed"
+version = "0.1.0"
+edition = "2024"
+
+[workspace]
+resolver = "3"
+members = [
+    "crates/unleashed-assets",
+    "crates/unleashed-render",
+    "crates/unleashed-runtime",
+    "crates/unleashed-platform",
+    "crates/unleashed-game",
+    "crates/unleashed-physics",
+    "crates/unleashed-animation",
+    "crates/unleashed-audio",
+    "tools/asset-inspector",
+    "crates/unleashed-bevy",
+    "crates/xenon-oracle",
+    "crates/unleashed-minecraft",
+    "crates/xenon-rt",
+    "crates/unleashed-guest",
+    "crates/unleashed-guest-host",
+]
+
+[dependencies]
+anyhow = "1"
+unleashed-platform = { path = "crates/unleashed-platform" }
+unleashed-render = { path = "crates/unleashed-render" }
+unleashed-runtime = { path = "crates/unleashed-runtime" }
+
+[workspace.dependencies]
+anyhow = "1"
+bytemuck = { version = "1", features = ["derive"] }
+glam = "0.30"
+pollster = "0.4"
+thiserror = "2"
+wgpu = "27"
+winit = "0.30"
+
+[profile.release]
+debug = "line-tables-only"
+# The lifted guest crate (crates/unleashed-guest, thousands of functions) is relifted
+# every discovery round; incremental builds recompile only the modules that changed.
+incremental = true
+
+[profile.dev]
+opt-level = 1
+
+[profile.dev.package."*"]
+opt-level = 3

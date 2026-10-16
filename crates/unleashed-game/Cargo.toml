@@ -1,0 +1,8 @@
+[package]
+name = "unleashed-game"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+# Same glam as Bevy 0.19 so the Bevy app can pass its vectors straight through.
+glam = "0.32"

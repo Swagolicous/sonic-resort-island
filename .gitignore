@@ -1,0 +1,57 @@
+/target/
+*.pdb
+*.ilk
+.DS_Store
+
+# Generated reverse-engineering databases/projects.
+re/ghidra/*-projects/
+re/ghidra/smoke-projects/
+re/reference-index/*.sqlite
+re/reference-index/*.sqlite-shm
+re/reference-index/*.sqlite-wal
+
+# Derived from sheets/*.csv by sheets/sheetc.py.
+sheets/build/
+
+# Recompiled game code / tool builds (derived from the user's own default.xex; never commit).
+re/xenon/build/
+re/xenon/ppc/
+re/xenon/*.log
+re/capture/_work/
+re/capture/tools/
+re/capture/traces/
+re/capture/*.log
+re/xenos/wgpu/
+re/xenos/wgsl/
+re/oracle/build/
+re/oracle/stubs.cpp
+re/oracle/*.log
+
+# Public source draft: supply these locally; do not stage game data or captures.
+/artifacts/
+/snapshots/
+/game/
+/update/
+/refs/
+/minecraft/
+/crates/unleashed-guest/src/
+/crates/unleashed-guest/lift_failures.json
+/re/capture/_patchtree/
+/re/capture/_patchrepo/
+/re/ghidra/out/
+/assets/resort-island/*
+!/assets/resort-island/level.json
+!/assets/resort-island/LEVEL-README.md
+*.xex
+*.xexp
+*.bin
+*.ar
+*.pfd
+*.iso
+*.exe
+*.dll
+*.log
+.env
+.env.*
+!.env.example
+__pycache__/

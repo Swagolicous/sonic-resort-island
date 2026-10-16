@@ -1,0 +1,22 @@
+[package]
+name = "unleashed-bevy"
+version = "0.1.0"
+edition = "2024"
+
+[[bin]]
+name = "windmill-isle"
+path = "src/main.rs"
+
+[dependencies]
+unleashed-guest-host = { path = "../unleashed-guest-host" }
+anyhow.workspace = true
+bevy = { version = "0.19.1", features = ["dds"] }
+parry3d = "0.31"
+serde_json = "1"
+unleashed-assets = { path = "../unleashed-assets" }
+unleashed-game = { path = "../unleashed-game" }
+unleashed-minecraft = { path = "../unleashed-minecraft" }
+
+[features]
+# Chrome trace of every system/render pass (writes trace-*.json in the working dir).
+profile = ["bevy/trace_chrome"]

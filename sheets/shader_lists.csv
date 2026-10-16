@@ -1,0 +1,11 @@
+shader_list,pixel_perm,pixel_shader,pixel_variants,vertex_perm,vertex_shader,vertex_variants
+SonicCloth_dsn[b],default,SonicCloth_dsn@@,0x55,none,CharactorSSS_@bdn@,0x01
+SonicCloth_dsn[b],default,SonicCloth_dsn@@,0x55,p,CharactorSSS_@bdn@p,0x01
+SonicEnamel_dspe[bc],default,SonicEnamel_dspe@c@,0x55,none,CharactorDefault_@b@,0x01
+SonicEnamel_dspe[bc],default,SonicEnamel_dspe@c@,0x55,p,CharactorDefault_@b@p,0x01
+SonicEye_dpne[bcu],default,SonicEye_dpne@c@,0x55,none,SonicEye_@bnu@,0x01
+SonicEye_dpne[bcu],default,SonicEye_dpne@c@,0x55,p,Dummy_@@p,0x03
+SonicMetal_dpe[b],default,SonicMetal_dpe@@,0x55,none,CharactorSphereRef_@b@,0x01
+SonicMetal_dpe[b],default,SonicMetal_dpe@@,0x55,p,Dummy_@@p,0x03
+SonicSkin_dspf[b],default,SonicSkin_dspf@@,0x55,none,CharactorDefault_@b@,0x01
+SonicSkin_dspf[b],default,SonicSkin_dspf@@,0x55,p,CharactorDefault_@b@p,0x01

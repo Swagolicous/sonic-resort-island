@@ -1,0 +1,17 @@
+store,parent,name,view,doc
+0x83362F50,-,-,no,-
+0x83362F9C,0x83362F50,Common,no,Common Sonic store (parent of both views).
+0x83362FA4,0x83362F9C,ForwardView,yes,"3D running (""ForwardView"")."
+0x83362FAC,0x83362F9C,SideView,yes,"2D side-scrolling (""SideView"", selected by `ctx+0x4b4`, see sub_82317508)."
+0x83362FB4,0x83362FA4,-,no,-
+0x83362FBC,0x83362FA4,-,no,-
+0x83362FC4,0x83362FAC,-,no,-
+0x83362FCC,0x83362FA4,-,no,-
+0x83362FD4,0x83362FAC,-,no,-
+0x83364728,0x83362FA4,-,no,-
+0x83364750,0x83362FA4,-,no,-
+0x83364758,0x83364750,-,no,-
+0x83364760,0x83364758,-,no,-
+0x83364768,0x83364758,-,no,-
+0x83364770,0x83364758,-,no,-
+0x83364778,0x83364758,-,no,-

@@ -1,0 +1,49 @@
+struct,offset,field,type,evidence,doc
+speed_context,0x010,body,ptr,sub_8230A4E0;sub_82308308,Body object (vf2 -> its matrix; +0x60 its rotation).
+speed_context,0x120,stick,vec4,sub_823083F0,World-space stick direction.
+speed_context,0x1FC,param_store,ptr,sub_8245DB60;sub_82307EB8,Parameter store tree for this character.
+speed_context,0x210,velocity,vec4,sub_8231A0E8;sub_8231D020,World velocity.
+speed_context,0x220,horizontal_velocity,vec4,sub_8231D0D0;sub_8231CF50,Velocity in the ground plane.
+speed_context,0x230,vertical_velocity,vec4,sub_8231A0E8,Velocity along the ground normal.
+speed_context,0x250,to_local,mat4,sub_8231A0E8,World to ground-frame rotation.
+speed_context,0x290,to_world,mat4,sub_8231A0E8,Ground frame back to world.
+speed_context,0x2F0,up,vec4,sub_82317040,Up vector (velocity turns about it).
+speed_context,0x3C0,grounded,u8,sub_82316118,On the ground.
+speed_context,0x440,rotation,quat,sub_823161E0;sub_82349538,Current rotation.
+speed_context,0x460,target_rotation,quat,sub_8231A3A8;sub_823161F0,Rotation set this frame.
+speed_context,0x4AC,flags,ptr,sub_823171C8;sub_82333D78,Flag set (+4 -> byte per flag; sheets/context_flags.csv).
+speed_context,0x4B0,flags2,ptr,sub_8231B7D8,Second flag set.
+speed_context,0x4B8,fallback_div,f32,sub_82316160,Divisor of the deceleration fallback.
+speed_context,0x510,rotation_blend,f32,sub_823165B0,Blend toward the fixed rotation force under flag 22.
+speed_context,0x540,fallback_scale,f32,sub_82316160,Scale of the deceleration fallback.
+speed_context,0x54C,stick_timer,f32,sub_823167E0,Time since the stick changed (NoPadStopWalk).
+speed_context,0x554,input_scale,f32,sub_823161D8;sub_82321A90,Scale on turning input and velocity changes.
+speed_context,0x565,split_stale,u8,sub_8231A0E8;sub_8231D020,Horizontal/vertical split needs recomputing.
+speed_context,0x566,velocity_dirty,u8,sub_8231CF50;sub_8231D020,World velocity needs rebuilding from the split.
+speed_context,0x650,keep_running_guide,ptr,sub_82320820,KeepRunning guide object.
+speed_context,0x658,guide_forward,u8,sub_82320820,Guide direction already points forward.
+speed_context,0x6B0,contact_normal,vec4,sub_8231AA60,Contact normal velocity changes may not push into.
+speed_context,0xCC8,blocked_count,i32,sub_8231B7D8;sub_82317EC0,Enemies blocking Sonic.
+speed_context,0xD3C,lean_input,f32,sub_82316990,Accumulated sideways stick input.
+posture,0x008,context,ptr,sub_8315CF68,Its speed context.
+posture,0x00C,timing,ptr,sub_82E627D0,Frame timing (+0x24: dt).
+speed_context,0x2E0,field_0x2e0,u8,sub_82316120,Not identified yet.
+speed_context,0x470,field_0x470,vec4,sub_823161E8,Not identified yet.
+speed_context,0x104,field_0x104,ptr,sub_823083A8,Not identified yet.
+speed_context,0x4B4,side_view,u8,sub_82316208;sub_82317508,Selects the 2D SideView parameters (sub_82317508).
+speed_context,0xC98,field_0xc98,u8,sub_82316B88,Not identified yet.
+speed_context,0xC94,field_0xc94,ptr,sub_823167D0,Not identified yet.
+speed_context,0x584,field_0x584,f32,sub_823165A0;sub_82316598,Not identified yet.
+speed_context,0x4E4,field_0x4e4,f32,sub_82316508,Not identified yet.
+speed_context,0x580,field_0x580,f32,sub_82316510,Not identified yet.
+speed_context,0x50C,field_0x50c,f32,sub_823165A8,Not identified yet.
+speed_context,0x240,field_0x240,vec4,sub_82318640,Not identified yet.
+speed_context,0xCA0,field_0xca0,vec4,sub_82318AF0,Not identified yet.
+speed_context,0xCB0,field_0xcb0,vec4,sub_82318B00,Not identified yet.
+speed_context,0x310,field_0x310,vec4,sub_82317468,Not identified yet.
+speed_context,0x3D0,field_0x3d0,vec4,sub_82317060;sub_82317050,Not identified yet.
+speed_context,0x5F0,field_0x5f0,vec4,sub_82317178,Not identified yet.
+speed_context,0x320,field_0x320,vec4,sub_82317478,Not identified yet.
+speed_context,0x300,field_0x300,vec4,sub_82317458,Not identified yet.
+speed_context,0x330,field_0x330,vec4,sub_82317488,Not identified yet.
+speed_context,0x6A0,landing_reference,vec4,sub_82317A28,Direction a reversed surface normal is checked against for landing (normalized on use).

@@ -1,0 +1,13 @@
+[package]
+name = "xenon-oracle"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[dependencies]
+libloading = "0.8"
+
+[dev-dependencies]
+unleashed-game = { path = "../unleashed-game" }
+unleashed-guest = { path = "../unleashed-guest" }
+xenon-rt = { path = "../xenon-rt" }

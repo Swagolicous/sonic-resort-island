@@ -1,0 +1,310 @@
+{
+  "schema_version": 1,
+  "target": {
+    "game": "Sonic Unleashed",
+    "platform": "Xbox 360 guest / UnleashedRecomp",
+    "endianness": "big",
+    "purpose": "Initial Sonic movement parity telemetry. Prefer source-backed offsets and guest PCs; unresolved fields are explicitly marked discovery_required."
+  },
+  "capture_strategy": {
+    "primary": "Add read-only telemetry hooks in UnleashedRecomp at stable guest update/posture PCs. Resolve the active Sonic CCharacterProxy pointer once per sampled player update, then snapshot guest memory through g_memory.Translate without mutating guest state.",
+    "cadence": "Capture one coherent sample per Sonic simulation update. Preserve guest dt as a field; do not assume host-present cadence equals simulation cadence. 30 Hz is the original-behaviour reference repeatedly used by UnleashedRecomp fixes, while some HFR paths run at 60 Hz or above.",
+    "ordering": "For parity traces, sample position/velocity and derived values at the same hook phase each frame. Record guest PC, frame index, and dt with every row so traces from original/recompiled implementations can be aligned.",
+    "discovery": "For signals marked discovery_required, instrument the named guest PC/function region and log candidate registers plus nearby object memory across controlled scenarios (idle, run, jump/fall, wall/slope, boost, enter/leave 2D, animation transitions). Promote a candidate to a fixed offset only after correlation and write-site confirmation.",
+    "recommended_output": "JSONL or CSV rows keyed by frame_index and guest_pc; keep raw vectors/components in guest units and add derived scalar metrics separately."
+  },
+  "evidence": [
+    {
+      "id": "character_proxy_layout",
+      "source": "UnleashedRecomp/api/SWA/CharacterUtility/CharacterProxy.h",
+      "fact": "CCharacterProxy has 0x120 bytes of padding, then CVector m_Position and CVector m_Velocity."
+    },
+    {
+      "id": "vector_layout",
+      "source": "UnleashedRecomp/api/Hedgehog/Math/Vector.h",
+      "fact": "CVector is four big-endian float32 components X/Y/Z/W, therefore 16 bytes."
+    },
+    {
+      "id": "speed_posture_sites",
+      "source": "UnleashedRecompLib/config/SWA.toml",
+      "fact": "Named Sonic speed posture hook sites identify 3D, 2D/on-path/force-path, and path-local execution regions at 0x8234EEE8, 0x8234F194, and 0x8234F610."
+    },
+    {
+      "id": "sonic_state_site",
+      "source": "UnleashedRecompLib/config/SWA.toml",
+      "fact": "0x8231F824 is shared by CPlayerSpeedStateNormalDamageStandUp / CSonicStateStartEvent / CSonicStateStompingLand."
+    },
+    {
+      "id": "dt_semantics",
+      "source": "UnleashedRecomp/patches/fps_patches.cpp + UnleashedRecompLib/config/SWA.toml",
+      "fact": "UnleashedRecomp treats time deltas as seconds and repeatedly uses 1/30 s as original-behaviour reference. The 2D spline HFR sites at 0x82345468, 0x8234547C, 0x823454B0, 0x82345534, 0x823455EC, 0x8234564C, 0x823457A8, and 0x823458A0 expose dt in f1."
+    },
+    {
+      "id": "camera_2d_player_probes",
+      "source": "UnleashedRecompLib/config/SWA.toml",
+      "fact": "2D camera HFR hooks label 0x824761AC as Player velocity and 0x824762AC as Player position; both use f0/f28 and are useful independent correlation probes."
+    },
+    {
+      "id": "binary_strings",
+      "source": "patched/default.xex string scan",
+      "fact": "Debug/source strings identify PlayerSpeedContext.cpp, PlayerSpeedStateBase.cpp, PathController.cpp, PlayerSpeedPosturePluginAutoMoveOnPath.cpp, and runtime parameter strings including Gravity and Boost."
+    }
+  ],
+  "signals": [
+    {
+      "id": "dt_seconds",
+      "category": "dt",
+      "kind": "scalar",
+      "type": "float64_or_float32",
+      "units": "seconds",
+      "meaning": "Simulation delta time associated with the sampled Sonic update.",
+      "sample_cadence": "once per sampled simulation update",
+      "capture": {
+        "method": "guest_register",
+        "guest_address": [
+          "0x82345468",
+          "0x8234547C",
+          "0x823454B0",
+          "0x82345534",
+          "0x823455EC",
+          "0x8234564C",
+          "0x823457A8",
+          "0x823458A0"
+        ],
+        "guest_function": "2D spline HFR update regions",
+        "register": "f1",
+        "status": "confirmed_probe_sites"
+      },
+      "notes": "Record the actual guest dt passed to the sampled update when available. App::s_deltaTime is useful as a host-side mirror but can differ from time-scaled function dt."
+    },
+    {
+      "id": "position",
+      "category": "position",
+      "kind": "vec3",
+      "type": "be_float32[3]",
+      "units": "guest world units",
+      "meaning": "Sonic proxy world position X/Y/Z.",
+      "sample_cadence": "once per sampled simulation update",
+      "capture": {
+        "method": "guest_memory",
+        "base_object": "SWA::CCharacterProxy",
+        "offset": "0x120",
+        "components": {
+          "x": "0x120",
+          "y": "0x124",
+          "z": "0x128"
+        },
+        "correlation_probe": {
+          "guest_address": "0x824762AC",
+          "guest_function": "2D camera Player position HFR site",
+          "registers": [
+            "f0",
+            "f28"
+          ]
+        },
+        "status": "confirmed_layout"
+      }
+    },
+    {
+      "id": "velocity",
+      "category": "velocity",
+      "kind": "vec3",
+      "type": "be_float32[3]",
+      "units": "guest world units per second (semantic expectation; verify against dt integration)",
+      "meaning": "Sonic proxy velocity X/Y/Z.",
+      "sample_cadence": "once per sampled simulation update",
+      "capture": {
+        "method": "guest_memory",
+        "base_object": "SWA::CCharacterProxy",
+        "offset": "0x130",
+        "components": {
+          "x": "0x130",
+          "y": "0x134",
+          "z": "0x138"
+        },
+        "correlation_probe": {
+          "guest_address": "0x824761AC",
+          "guest_function": "2D camera Player velocity HFR site",
+          "registers": [
+            "f0",
+            "f28"
+          ]
+        },
+        "status": "confirmed_layout"
+      }
+    },
+    {
+      "id": "velocity_magnitude",
+      "category": "velocity",
+      "kind": "derived_scalar",
+      "type": "float32",
+      "units": "guest world units per second",
+      "meaning": "Length of proxy XYZ velocity, used as a stable first-order parity metric.",
+      "sample_cadence": "derived for every velocity sample",
+      "capture": {
+        "method": "derived",
+        "formula": "sqrt(vx*vx + vy*vy + vz*vz)",
+        "status": "derived_from_confirmed_layout"
+      }
+    },
+    {
+      "id": "ground_speed",
+      "category": "ground_speed",
+      "kind": "scalar",
+      "type": "float32",
+      "units": "guest world units per second",
+      "meaning": "Speed along Sonic's current ground/path-forward tangent, distinct from full 3D velocity magnitude.",
+      "sample_cadence": "once per sampled simulation update when grounded",
+      "capture": {
+        "method": "instrument_candidate_registers_and_context",
+        "guest_address": "0x8234EEE8 / 0x8234F194 / 0x8234F610",
+        "guest_function": "CPlayerSpeedPostureInput3DStandard / CPlayerSpeedPostureInputOnPath|ForcePath|2DStandard / CPlayerSpeedPostureInputPathLocal",
+        "status": "discovery_required"
+      },
+      "notes": "Do not substitute velocity magnitude permanently; use it only as a temporary comparison channel until the signed tangent-speed field is identified."
+    },
+    {
+      "id": "state",
+      "category": "state",
+      "kind": "enum_or_pointer_identity",
+      "type": "uint32",
+      "units": "state id/hash/address",
+      "meaning": "Current Sonic locomotion/gameplay state identity.",
+      "sample_cadence": "on change plus once per sampled simulation update",
+      "capture": {
+        "method": "instrument_state_dispatch/context",
+        "guest_address": "0x8231F824",
+        "guest_function": "CPlayerSpeedStateNormalDamageStandUp / CSonicStateStartEvent / CSonicStateStompingLand shared region",
+        "status": "probe_site_confirmed_field_discovery_required"
+      }
+    },
+    {
+      "id": "up_vector",
+      "category": "gravity_up",
+      "kind": "vec3",
+      "type": "be_float32[3]",
+      "units": "unit vector",
+      "meaning": "Sonic local/up direction used by movement and grounding, expected to oppose effective gravity when gravity is conventional.",
+      "sample_cadence": "once per sampled simulation update",
+      "capture": {
+        "method": "instrument_player_speed_context",
+        "guest_address": null,
+        "guest_function": "PlayerSpeedContext.cpp region identified from guest debug strings",
+        "status": "discovery_required"
+      }
+    },
+    {
+      "id": "gravity_strength",
+      "category": "gravity_up",
+      "kind": "scalar",
+      "type": "float32",
+      "units": "guest acceleration units",
+      "meaning": "Effective gravity magnitude/parameter affecting Sonic movement.",
+      "sample_cadence": "once per sampled simulation update and on parameter/state changes",
+      "capture": {
+        "method": "instrument_parameter_reads",
+        "guest_address": null,
+        "guest_function": "PlayerSpeedContext.cpp region; guest strings contain parameter name Gravity",
+        "status": "discovery_required"
+      }
+    },
+    {
+      "id": "collision_normal",
+      "category": "collision",
+      "kind": "vec3",
+      "type": "be_float32[3]",
+      "units": "unit vector",
+      "meaning": "Current supporting/contact surface normal used by Sonic locomotion.",
+      "sample_cadence": "once per sampled simulation update when contact exists",
+      "capture": {
+        "method": "instrument_ground_resolution_and_correlate_with_posture_context",
+        "guest_address": null,
+        "guest_function": "PlayerSpeedPosture / PlayerSpeedState movement regions",
+        "status": "discovery_required"
+      }
+    },
+    {
+      "id": "grounded",
+      "category": "collision",
+      "kind": "boolean",
+      "type": "uint8_or_bit",
+      "units": "boolean",
+      "meaning": "Whether Sonic currently has a valid supporting ground contact.",
+      "sample_cadence": "once per sampled simulation update and on change",
+      "capture": {
+        "method": "instrument_ground_resolution",
+        "guest_address": null,
+        "guest_function": "PlayerSpeedPosture / PlayerSpeedState movement regions",
+        "status": "discovery_required"
+      }
+    },
+    {
+      "id": "boost",
+      "category": "boost",
+      "kind": "scalar",
+      "type": "float32_or_integer",
+      "units": "game boost gauge units",
+      "meaning": "Current Sonic boost resource/gauge value.",
+      "sample_cadence": "once per sampled simulation update and on change",
+      "capture": {
+        "method": "instrument_player_speed_context_parameter_or_gauge_access",
+        "guest_address": null,
+        "guest_function": "PlayerSpeedContext.cpp region identified from guest debug strings; guest strings contain Boost",
+        "status": "discovery_required"
+      }
+    },
+    {
+      "id": "is_2d_path_mode",
+      "category": "2d_path",
+      "kind": "boolean",
+      "type": "derived_from_pc_or_context_flag",
+      "units": "boolean",
+      "meaning": "Whether Sonic is executing the 2D/on-path movement posture rather than the normal 3D posture.",
+      "sample_cadence": "on posture transition plus once per sampled simulation update",
+      "capture": {
+        "method": "guest_pc_classification_then_context_flag_discovery",
+        "guest_address": "0x8234F194",
+        "guest_function": "CPlayerSpeedPostureInputOnPath / CPlayerSpeedPostureInputForcePath / CPlayerSpeedPostureInput2DStandard",
+        "negative_reference_address": "0x8234EEE8",
+        "negative_reference_function": "CPlayerSpeedPostureInput3DStandard",
+        "status": "probe_site_confirmed"
+      }
+    },
+    {
+      "id": "path_local_input_state",
+      "category": "2d_path",
+      "kind": "probe_snapshot",
+      "type": "register_tuple",
+      "units": "mixed/raw",
+      "meaning": "Raw path-local posture input values useful for identifying path tangent/progress and signed path speed fields.",
+      "sample_cadence": "each execution of path-local posture site",
+      "capture": {
+        "method": "guest_registers",
+        "guest_address": "0x8234F610",
+        "guest_function": "CPlayerSpeedPostureInputPathLocal",
+        "registers": [
+          "r30",
+          "f0",
+          "f13"
+        ],
+        "status": "confirmed_probe_site"
+      }
+    },
+    {
+      "id": "animation",
+      "category": "animation",
+      "kind": "enum_hash_or_name",
+      "type": "uint32_or_string",
+      "units": "animation identity",
+      "meaning": "Current Sonic locomotion animation/clip identity for movement parity and state-transition timing.",
+      "sample_cadence": "on animation change plus once per sampled simulation update",
+      "capture": {
+        "method": "instrument_animation_selection/play calls reached from Sonic state transitions",
+        "guest_address": null,
+        "guest_function": "PlayerSpeedStateBase.cpp region identified from guest debug strings",
+        "status": "discovery_required"
+      },
+      "notes": "Guest strings around PlayerSpeedStateBase.cpp include animation names such as sonic_brake and sonic_jump_landing, confirming animation selection is observable in this state region."
+    }
+  ]
+}

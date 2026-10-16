@@ -1,0 +1,778 @@
+diff --git a/UnleashedRecomp/patches/fps_patches.cpp b/UnleashedRecomp/patches/fps_patches.cpp
+index 322073c..465edf3 100644
+--- a/UnleashedRecomp/patches/fps_patches.cpp
++++ b/UnleashedRecomp/patches/fps_patches.cpp
+@@ -3,6 +3,7 @@
+ #include <ui/game_window.h>
+ #include <user/config.h>
+ #include <app.h>
++#include "telemetry_capture.h"
+ 
+ void DownForceDeltaTimeFixMidAsmHook(PPCRegister& f0)
+ {
+@@ -28,6 +29,24 @@ void HighFrameRateDeltaTimeFixMidAsmHook(PPCRegister& f1)
+         f1.f64 = threshold;
+ }
+ 
++#define DEFINE_TELEMETRY_DT_HOOK(name, address) \
++    void name(PPCRegister& f1) \
++    { \
++        TelemetryCapture::RecordDeltaTime(address, f1); \
++        HighFrameRateDeltaTimeFixMidAsmHook(f1); \
++    }
++
++DEFINE_TELEMETRY_DT_HOOK(TelemetryDeltaTime82345468MidAsmHook, 0x82345468);
++DEFINE_TELEMETRY_DT_HOOK(TelemetryDeltaTime8234547CMidAsmHook, 0x8234547C);
++DEFINE_TELEMETRY_DT_HOOK(TelemetryDeltaTime823454B0MidAsmHook, 0x823454B0);
++DEFINE_TELEMETRY_DT_HOOK(TelemetryDeltaTime82345534MidAsmHook, 0x82345534);
++DEFINE_TELEMETRY_DT_HOOK(TelemetryDeltaTime823455ECMidAsmHook, 0x823455EC);
++DEFINE_TELEMETRY_DT_HOOK(TelemetryDeltaTime8234564CMidAsmHook, 0x8234564C);
++DEFINE_TELEMETRY_DT_HOOK(TelemetryDeltaTime823457A8MidAsmHook, 0x823457A8);
++DEFINE_TELEMETRY_DT_HOOK(TelemetryDeltaTime823458A0MidAsmHook, 0x823458A0);
++
++#undef DEFINE_TELEMETRY_DT_HOOK
++
+ // This hook expects the vector register to store delta time at the first index.
+ void HighFrameRateDeltaTimeFixVectorMidAsmHook(PPCVRegister& v62)
+ {
+@@ -82,6 +101,18 @@ void Camera2DLerpFixMidAsmHook(PPCRegister& t, PPCRegister& deltaTime)
+     t.f64 = ComputeLerpFactor(std::min<double>(1.0, t.f64 * 2.0), deltaTime.f64 / 60.0);
+ }
+ 
++void TelemetryCameraVelocity824761ACMidAsmHook(PPCRegister& f0, PPCRegister& f28)
++{
++    TelemetryCapture::RecordCameraProbe(0x824761AC, "velocity", f0, f28);
++    Camera2DLerpFixMidAsmHook(f0, f28);
++}
++
++void TelemetryCameraPosition824762ACMidAsmHook(PPCRegister& f0, PPCRegister& f28)
++{
++    TelemetryCapture::RecordCameraProbe(0x824762AC, "position", f0, f28);
++    Camera2DLerpFixMidAsmHook(f0, f28);
++}
++
+ void Camera2DSlopeLerpFixMidAsmHook(PPCRegister& t, PPCRegister& deltaTime)
+ {
+     t.f64 = ComputeLerpFactor(t.f64, deltaTime.f64 / 60.0);
+@@ -203,3 +234,22 @@ void CEvilSonicContext_CStateWall_LeaveRotationMidAsmHook(PPCRegister& f1)
+     // delta time whilst maintaining the original behaviour at 30 FPS.
+     f1.f64 = f1.f64 * (std::min(App::s_deltaTime, 1.0 / 15.0) / (1.0 / 30.0));
+ }
++
++// unleashed-rs guest snapshot (patches/guest_snapshot.h): Sonic's per-frame update.
++#include "guest_snapshot.h"
++PPC_FUNC_IMPL(__imp__sub_82346F08);
++PPC_FUNC(sub_82346F08)
++{
++    const bool snap = GuestSnapshot::Before(ctx, 0x82346F08);
++    __imp__sub_82346F08(ctx, base);
++    if (snap)
++        GuestSnapshot::After(0x82346F08);
++}
++PPC_FUNC_IMPL(__imp__sub_8247D458);
++PPC_FUNC(sub_8247D458)
++{
++    const bool snap = GuestSnapshot::Before(ctx, 0x8247D458);
++    __imp__sub_8247D458(ctx, base);
++    if (snap)
++        GuestSnapshot::After(0x8247D458);
++}
+diff --git a/UnleashedRecomp/patches/input_patches.cpp b/UnleashedRecomp/patches/input_patches.cpp
+index 0ec8f33..a6d4944 100644
+--- a/UnleashedRecomp/patches/input_patches.cpp
++++ b/UnleashedRecomp/patches/input_patches.cpp
+@@ -3,6 +3,7 @@
+ #include <app.h>
+ #include <exports.h>
+ #include <sdl_listener.h>
++#include "telemetry_capture.h"
+ 
+ constexpr double WORLD_MAP_ROTATE_DEADZONE = 0.69999999;
+ constexpr double WORLD_MAP_CURSOR_DEADZONE = 0.30000001;
+@@ -280,6 +281,30 @@ void PostureDPadSupportInvertYMidAsmHook(PPCRegister& pPadState, PPCRegister& x,
+     SetDPadAnalogDirectionY(pPadState, y, true);
+ }
+ 
++void TelemetryPosture2D8234F194MidAsmHook(PPCRegister& r31, PPCRegister& f13, PPCRegister& f0, PPCRegister& r29)
++{
++    TelemetryCapture::Sample(0x8234F194, "2d", r29, "r31", r31, "f13", f13, "f0", f0);
++    PostureDPadSupportInvertYMidAsmHook(r31, f13, f0);
++}
++
++void TelemetryPosturePathLocal8234F610MidAsmHook(PPCRegister& r30, PPCRegister& f0, PPCRegister& f13, PPCRegister& r29)
++{
++    TelemetryCapture::Sample(0x8234F610, "path_local", r29, "r30", r30, "f0", f0, "f13", f13);
++    PostureDPadSupportMidAsmHook(r30, f0, f13);
++}
++
++void TelemetryPosture3D8234EEE8MidAsmHook(PPCRegister& r31, PPCRegister& f12, PPCRegister& f13, PPCRegister& r30)
++{
++    TelemetryCapture::Sample(0x8234EEE8, "3d", r30, "r31", r31, "f12", f12, "f13", f13);
++    PostureDPadSupportInvertYMidAsmHook(r31, f12, f13);
++}
++
++void TelemetryState8231F824MidAsmHook(PPCRegister& r29, PPCRegister& f12, PPCRegister& f13)
++{
++    TelemetryCapture::RecordStateProbe(0x8231F824, r29, f12, f13);
++    PostureDPadSupportMidAsmHook(r29, f12, f13);
++}
++
+ void PostureDPadSupportXMidAsmHook(PPCRegister& pPadState, PPCRegister& x)
+ {
+     SetDPadAnalogDirectionX(pPadState, x, false);
+diff --git a/UnleashedRecompLib/config/SWA.toml b/UnleashedRecompLib/config/SWA.toml
+index 5063e71..d0db4b5 100644
+--- a/UnleashedRecompLib/config/SWA.toml
++++ b/UnleashedRecompLib/config/SWA.toml
+@@ -223,42 +223,42 @@ registers = ["v127", "f24"]
+ 
+ # 2D spline HFR fix
+ [[midasm_hook]]
+-name = "HighFrameRateDeltaTimeFixMidAsmHook"
++name = "TelemetryDeltaTime82345468MidAsmHook"
+ address = 0x82345468
+ registers = ["f1"]
+ 
+ [[midasm_hook]]
+-name = "HighFrameRateDeltaTimeFixMidAsmHook"
++name = "TelemetryDeltaTime8234547CMidAsmHook"
+ address = 0x8234547C
+ registers = ["f1"]
+ 
+ [[midasm_hook]]
+-name = "HighFrameRateDeltaTimeFixMidAsmHook"
++name = "TelemetryDeltaTime823454B0MidAsmHook"
+ address = 0x823454B0
+ registers = ["f1"]
+ 
+ [[midasm_hook]]
+-name = "HighFrameRateDeltaTimeFixMidAsmHook"
++name = "TelemetryDeltaTime82345534MidAsmHook"
+ address = 0x82345534
+ registers = ["f1"]
+ 
+ [[midasm_hook]]
+-name = "HighFrameRateDeltaTimeFixMidAsmHook"
++name = "TelemetryDeltaTime823455ECMidAsmHook"
+ address = 0x823455EC
+ registers = ["f1"]
+ 
+ [[midasm_hook]]
+-name = "HighFrameRateDeltaTimeFixMidAsmHook"
++name = "TelemetryDeltaTime8234564CMidAsmHook"
+ address = 0x8234564C
+ registers = ["f1"]
+ 
+ [[midasm_hook]]
+-name = "HighFrameRateDeltaTimeFixMidAsmHook"
++name = "TelemetryDeltaTime823457A8MidAsmHook"
+ address = 0x823457A8
+ registers = ["f1"]
+ 
+ [[midasm_hook]]
+-name = "HighFrameRateDeltaTimeFixMidAsmHook"
++name = "TelemetryDeltaTime823458A0MidAsmHook"
+ address = 0x823458A0
+ registers = ["f1"]
+ 
+@@ -364,13 +364,13 @@ registers = ["v13", "v62"]
+ 
+ # 2D camera HFR fixes
+ [[midasm_hook]]
+-name = "Camera2DLerpFixMidAsmHook"
++name = "TelemetryCameraVelocity824761ACMidAsmHook"
+ address = 0x824761AC # Player velocity
+ registers = ["f0", "f28"]
+ jump_address = 0x824761B0
+ 
+ [[midasm_hook]]
+-name = "Camera2DLerpFixMidAsmHook"
++name = "TelemetryCameraPosition824762ACMidAsmHook"
+ address = 0x824762AC # Player position
+ registers = ["f0", "f28"]
+ jump_address = 0x824762B0
+@@ -625,21 +625,21 @@ address = 0x824DC9D4
+ 
+ # SWA::Player::CPlayerSpeedPostureInputOnPath / SWA::Player::CPlayerSpeedPostureInputForcePath / SWA::Player::CPlayerSpeedPostureInput2DStandard
+ [[midasm_hook]]
+-name = "PostureDPadSupportInvertYMidAsmHook"
++name = "TelemetryPosture2D8234F194MidAsmHook"
+ address = 0x8234F194
+-registers = ["r31", "f13", "f0"]
++registers = ["r31", "f13", "f0", "r29"]
+ 
+ # SWA::Player::CPlayerSpeedPostureInputPathLocal
+ [[midasm_hook]]
+-name = "PostureDPadSupportMidAsmHook"
++name = "TelemetryPosturePathLocal8234F610MidAsmHook"
+ address = 0x8234F610
+-registers = ["r30", "f0", "f13"]
++registers = ["r30", "f0", "f13", "r29"]
+ 
+ # SWA::Player::CPlayerSpeedPostureInput3DStandard
+ [[midasm_hook]]
+-name = "PostureDPadSupportInvertYMidAsmHook"
++name = "TelemetryPosture3D8234EEE8MidAsmHook"
+ address = 0x8234EEE8
+-registers = ["r31", "f12", "f13"]
++registers = ["r31", "f12", "f13", "r30"]
+ 
+ # SWA::Player::CEvilPostureInputStandard
+ [[midasm_hook]]
+@@ -739,7 +739,7 @@ registers = ["r29", "f0"]
+ 
+ # SWA::Player::CPlayerSpeedStateNormalDamageStandUp / SWA::Player::CSonicStateStartEvent / SWA::Player::CSonicStateStompingLand
+ [[midasm_hook]]
+-name = "PostureDPadSupportMidAsmHook"
++name = "TelemetryState8231F824MidAsmHook"
+ address = 0x8231F824
+ registers = ["r29", "f12", "f13"]
+ 
+diff --git a/UnleashedRecomp/patches/telemetry_capture.h b/UnleashedRecomp/patches/telemetry_capture.h
+new file mode 100644
+index 0000000..61a92b5
+--- /dev/null
++++ b/UnleashedRecomp/patches/telemetry_capture.h
+@@ -0,0 +1,385 @@
++#pragma once
++
++#include <api/SWA.h>
++#include <app.h>
++#include <kernel/memory.h>
++
++#include <cmath>
++#include <cstdio>
++#include <cstdlib>
++#include <fstream>
++#include <iomanip>
++#include <mutex>
++#include <string>
++#include <string_view>
++
++namespace TelemetryCapture
++{
++    inline constexpr const char* ReferenceCommit = "cf829a9eca8fb680fba4b0409ddeb6ca92f22e3c";
++
++    inline std::mutex g_mutex;
++    inline std::ofstream g_out;
++    inline bool g_initialized;
++    inline bool g_enabled;
++    inline bool g_discovery;
++    inline uint32_t g_proxyGuest;
++    inline uint64_t g_frameIndex;
++    inline bool g_guestDtSeen;
++    inline double g_guestDtSeconds;
++    inline uint32_t g_guestDtPc;
++    inline bool g_stateProbeSeen;
++    inline uint32_t g_stateProbeR29;
++    inline uint64_t g_stateProbeEpoch;
++
++    inline std::string Hex32(uint32_t value)
++    {
++        char buffer[11]{};
++        std::snprintf(buffer, sizeof(buffer), "0x%08X", value);
++        return buffer;
++    }
++
++    inline std::string JsonNumber(double value)
++    {
++        if (!std::isfinite(value))
++            return "null";
++
++        char buffer[64]{};
++        std::snprintf(buffer, sizeof(buffer), "%.17g", value);
++        return buffer;
++    }
++
++    inline uint32_t ParseGuestAddress(const char* value)
++    {
++        if (!value || !*value)
++            return 0;
++
++        char* end{};
++        const auto parsed = std::strtoull(value, &end, 0);
++        if (end == value || *end != '\0' || parsed > 0xFFFFFFFFull)
++            return 0;
++
++        return static_cast<uint32_t>(parsed);
++    }
++
++    inline bool ParseBool(const char* value)
++    {
++        if (!value)
++            return false;
++
++        return std::string_view(value) == "1" ||
++            std::string_view(value) == "true" ||
++            std::string_view(value) == "TRUE" ||
++            std::string_view(value) == "yes" ||
++            std::string_view(value) == "YES";
++    }
++
++    inline void EnsureInitializedLocked()
++    {
++        if (g_initialized)
++            return;
++
++        g_initialized = true;
++
++        const char* output = std::getenv("UNLEASHED_TRACE_OUT");
++        if (!output || !*output)
++            return;
++
++        g_discovery = ParseBool(std::getenv("UNLEASHED_TRACE_DISCOVERY"));
++        g_proxyGuest = ParseGuestAddress(std::getenv("UNLEASHED_TRACE_PROXY"));
++
++        g_out.open(output, std::ios::out | std::ios::trunc);
++        if (!g_out)
++            return;
++
++        g_enabled = true;
++        g_out
++            << "{\"kind\":\"meta\",\"schema_version\":1"
++            << ",\"reference_commit\":\"" << ReferenceCommit << "\""
++            << ",\"proxy_guest\":\"" << Hex32(g_proxyGuest) << "\""
++            << ",\"discovery\":" << (g_discovery ? "true" : "false")
++            << ",\"position_offset\":\"0x120\""
++            << ",\"velocity_offset\":\"0x130\""
++            << "}\n";
++        g_out.flush();
++    }
++
++    inline bool Enabled()
++    {
++        std::scoped_lock lock(g_mutex);
++        EnsureInitializedLocked();
++        return g_enabled;
++    }
++
++    inline void RecordDeltaTime(uint32_t guestPc, const PPCRegister& f1)
++    {
++        std::scoped_lock lock(g_mutex);
++        EnsureInitializedLocked();
++        if (!g_enabled)
++            return;
++
++        g_guestDtSeen = true;
++        g_guestDtSeconds = f1.f64;
++        g_guestDtPc = guestPc;
++
++        if (g_discovery)
++        {
++            g_out
++                << "{\"kind\":\"dt_probe\""
++                << ",\"guest_pc\":\"" << Hex32(guestPc) << "\""
++                << ",\"f1\":" << JsonNumber(f1.f64)
++                << ",\"app_dt\":" << JsonNumber(App::s_deltaTime)
++                << "}\n";
++            g_out.flush();
++        }
++    }
++
++    inline void RecordCameraProbe(
++        uint32_t guestPc,
++        std::string_view signal,
++        const PPCRegister& f0,
++        const PPCRegister& f28)
++    {
++        std::scoped_lock lock(g_mutex);
++        EnsureInitializedLocked();
++        if (!g_enabled || !g_discovery)
++            return;
++
++        g_out
++            << "{\"kind\":\"camera_probe\""
++            << ",\"signal\":\"" << signal << "\""
++            << ",\"guest_pc\":\"" << Hex32(guestPc) << "\""
++            << ",\"f0\":" << JsonNumber(f0.f64)
++            << ",\"f28\":" << JsonNumber(f28.f64)
++            << "}\n";
++        g_out.flush();
++    }
++
++    inline void RecordStateProbe(
++        uint32_t guestPc,
++        const PPCRegister& r29,
++        const PPCRegister& f12,
++        const PPCRegister& f13)
++    {
++        std::scoped_lock lock(g_mutex);
++        EnsureInitializedLocked();
++        if (!g_enabled)
++            return;
++
++        if (!g_stateProbeSeen || g_stateProbeR29 != r29.u32)
++            ++g_stateProbeEpoch;
++
++        g_stateProbeSeen = true;
++        g_stateProbeR29 = r29.u32;
++
++        g_out
++            << "{\"kind\":\"state_probe\""
++            << ",\"guest_pc\":\"" << Hex32(guestPc) << "\""
++            << ",\"state_probe_epoch\":" << g_stateProbeEpoch
++            << ",\"r29\":\"" << Hex32(r29.u32) << "\""
++            << ",\"f12\":" << JsonNumber(f12.f64)
++            << ",\"f13\":" << JsonNumber(f13.f64)
++            << "}\n";
++        g_out.flush();
++    }
++
++    // SWA::CCharacterProxy's primary vtable (RTTI .?AVCCharacterProxy@SWA@@, offset 0).
++    inline constexpr uint32_t CharacterProxyVtable = 0x820C0444;
++
++    // Where Sonic's proxy sits relative to his CPlayerSpeedContext: ctx+first, or
++    // *(ctx+first)+second when it is one pointer further away. Found by scanning for
++    // the vtable, then re-checked on every sample.
++    inline int32_t g_proxyFirst = -1;
++    inline int32_t g_proxySecond = -1;
++
++    // Guest memory is committed in full (kernel/memory.cpp) except the first page.
++    inline bool GuestPointer(uint32_t a)
++    {
++        return a >= 0x1000 && (a & 3) == 0 && a <= 0xFFFFFF00u;
++    }
++
++    inline uint32_t Load32(uint32_t a)
++    {
++        return reinterpret_cast<const be<uint32_t>*>(g_memory.Translate(a))->get();
++    }
++
++    inline bool IsProxy(uint32_t p)
++    {
++        return GuestPointer(p) && Load32(p) == CharacterProxyVtable;
++    }
++
++    inline uint32_t FollowProxyPath(uint32_t context)
++    {
++        if (g_proxyFirst < 0)
++            return 0;
++        uint32_t p = Load32(context + g_proxyFirst);
++        if (g_proxySecond >= 0)
++            p = GuestPointer(p) ? Load32(p + g_proxySecond) : 0;
++        return IsProxy(p) ? p : 0;
++    }
++
++    // Locked by the caller.
++    inline uint32_t ResolveProxyLocked(uint32_t context)
++    {
++        if (!GuestPointer(context))
++            return 0;
++        if (uint32_t p = FollowProxyPath(context))
++            return p;
++
++        int32_t first = -1, second = -1;
++        for (uint32_t o = 0; o < 0x1000 && first < 0; o += 4)
++            if (IsProxy(Load32(context + o)))
++                first = o;
++        for (uint32_t o = 0; o < 0x1000 && first < 0; o += 4)
++        {
++            uint32_t q = Load32(context + o);
++            if (!GuestPointer(q))
++                continue;
++            for (uint32_t o2 = 0; o2 < 0x400; o2 += 4)
++                if (IsProxy(Load32(q + o2)))
++                {
++                    first = o;
++                    second = o2;
++                    break;
++                }
++        }
++        if (first < 0)
++            return 0;
++
++        g_proxyFirst = first;
++        g_proxySecond = second;
++        g_out
++            << "{\"kind\":\"proxy_path\""
++            << ",\"frame_index\":" << g_frameIndex
++            << ",\"context\":\"" << Hex32(context) << "\""
++            << ",\"first\":\"" << Hex32(first) << "\""
++            << ",\"second\":" << (second < 0 ? std::string("null") : "\"" + Hex32(second) + "\"")
++            << "}\n";
++        return FollowProxyPath(context);
++    }
++
++    // Discovery: raw guest bytes (big-endian, as in memory) so context/proxy fields
++    // can be found offline by correlating them with known signals.
++    inline std::string HexBytes(uint32_t a, uint32_t n)
++    {
++        if (!GuestPointer(a))
++            return std::string();
++        static constexpr char digits[] = "0123456789abcdef";
++        const auto* p = reinterpret_cast<const uint8_t*>(g_memory.Translate(a));
++        std::string out(n * 2, '0');
++        for (uint32_t i = 0; i < n; ++i)
++        {
++            out[2 * i] = digits[p[i] >> 4];
++            out[2 * i + 1] = digits[p[i] & 15];
++        }
++        return out;
++    }
++
++    // The integer register of every posture hook is the SWA::SPadState the posture reads
++    // (lfs from +16/+20), so a sample carries the exact input of that update.
++    inline std::string PadJson(uint32_t pad)
++    {
++        if (!GuestPointer(pad))
++            return "null";
++        const auto* s = reinterpret_cast<const SWA::SPadState*>(g_memory.Translate(pad));
++        return "{\"down\":\"" + Hex32(s->DownState) + "\""
++            + ",\"tapped\":\"" + Hex32(s->TappedState) + "\""
++            + ",\"released\":\"" + Hex32(s->ReleasedState) + "\""
++            + ",\"lx\":" + JsonNumber(s->LeftStickHorizontal)
++            + ",\"ly\":" + JsonNumber(s->LeftStickVertical)
++            + ",\"rx\":" + JsonNumber(s->RightStickHorizontal)
++            + ",\"ry\":" + JsonNumber(s->RightStickVertical)
++            + ",\"lt\":" + JsonNumber(s->LeftTrigger)
++            + ",\"rt\":" + JsonNumber(s->RightTrigger) + "}";
++    }
++
++    inline void Sample(
++        uint32_t guestPc,
++        std::string_view mode,
++        const PPCRegister& posture,
++        std::string_view integerRegisterName,
++        const PPCRegister& integerRegister,
++        std::string_view firstFloatName,
++        const PPCRegister& firstFloat,
++        std::string_view secondFloatName,
++        const PPCRegister& secondFloat)
++    {
++        std::scoped_lock lock(g_mutex);
++        EnsureInitializedLocked();
++        if (!g_enabled)
++            return;
++
++        ++g_frameIndex;
++
++        bool proxyValid = false;
++        float px{}, py{}, pz{}, vx{}, vy{}, vz{};
++
++        // posture -> CPlayerSpeedContext is posture+8 (sub_8315CF68, called by every
++        // posture input before it reads the context).
++        const uint32_t context = GuestPointer(posture.u32) ? Load32(posture.u32 + 8) : 0;
++        const uint32_t proxyGuest = g_proxyGuest ? g_proxyGuest : ResolveProxyLocked(context);
++
++        const uint64_t proxyEnd = static_cast<uint64_t>(proxyGuest) + sizeof(SWA::CCharacterProxy);
++        if (proxyGuest >= 0x1000 && proxyEnd <= 0x100000000ull)
++        {
++            const auto* proxy = reinterpret_cast<const SWA::CCharacterProxy*>(g_memory.Translate(proxyGuest));
++            px = proxy->m_Position.X;
++            py = proxy->m_Position.Y;
++            pz = proxy->m_Position.Z;
++            vx = proxy->m_Velocity.X;
++            vy = proxy->m_Velocity.Y;
++            vz = proxy->m_Velocity.Z;
++
++            proxyValid =
++                std::isfinite(px) && std::isfinite(py) && std::isfinite(pz) &&
++                std::isfinite(vx) && std::isfinite(vy) && std::isfinite(vz);
++        }
++
++        const double velocityMagnitude = proxyValid
++            ? std::sqrt(
++                static_cast<double>(vx) * vx +
++                static_cast<double>(vy) * vy +
++                static_cast<double>(vz) * vz)
++            : 0.0;
++
++        g_out
++            << "{\"kind\":\"sample\""
++            << ",\"frame_index\":" << g_frameIndex
++            << ",\"guest_pc\":\"" << Hex32(guestPc) << "\""
++            << ",\"mode\":\"" << mode << "\""
++            << ",\"dt_seconds\":" << JsonNumber(App::s_deltaTime)
++            << ",\"guest_dt_seen\":" << (g_guestDtSeen ? "true" : "false")
++            << ",\"guest_dt_seconds\":" << (g_guestDtSeen ? JsonNumber(g_guestDtSeconds) : "null")
++            << ",\"guest_dt_pc\":\"" << Hex32(g_guestDtPc) << "\""
++            << ",\"posture\":\"" << Hex32(posture.u32) << "\""
++            << ",\"context\":\"" << Hex32(context) << "\""
++            << ",\"proxy_guest\":\"" << Hex32(proxyGuest) << "\""
++            << ",\"proxy_valid\":" << (proxyValid ? "true" : "false")
++            << ",\"position\":{"
++                << "\"x\":" << (proxyValid ? JsonNumber(px) : "null")
++                << ",\"y\":" << (proxyValid ? JsonNumber(py) : "null")
++                << ",\"z\":" << (proxyValid ? JsonNumber(pz) : "null")
++            << "}"
++            << ",\"velocity\":{"
++                << "\"x\":" << (proxyValid ? JsonNumber(vx) : "null")
++                << ",\"y\":" << (proxyValid ? JsonNumber(vy) : "null")
++                << ",\"z\":" << (proxyValid ? JsonNumber(vz) : "null")
++                << ",\"magnitude\":" << (proxyValid ? JsonNumber(velocityMagnitude) : "null")
++            << "}"
++            << ",\"state\":{"
++                << "\"status\":\"probe_identity_not_decoded\""
++                << ",\"seen\":" << (g_stateProbeSeen ? "true" : "false")
++                << ",\"epoch\":" << g_stateProbeEpoch
++                << ",\"r29\":\"" << Hex32(g_stateProbeR29) << "\""
++            << "}"
++            << ",\"pad\":" << PadJson(integerRegister.u32)
++            << (g_discovery ? ",\"context_bytes\":\"" + HexBytes(context, 0x800) + "\"" : std::string())
++            << (g_discovery ? ",\"proxy_bytes\":\"" + HexBytes(proxyGuest, 0x200) + "\"" : std::string())
++            << ",\"raw\":{"
++                << "\"" << integerRegisterName << "\":\"" << Hex32(integerRegister.u32) << "\""
++                << ",\"" << firstFloatName << "\":" << JsonNumber(firstFloat.f64)
++                << ",\"" << secondFloatName << "\":" << JsonNumber(secondFloat.f64)
++            << "}"
++            << "}\n";
++        g_out.flush();
++    }
++}
+diff --git a/UnleashedRecomp/patches/guest_snapshot.h b/UnleashedRecomp/patches/guest_snapshot.h
+new file mode 100644
+index 0000000..78754cf
+--- /dev/null
++++ b/UnleashedRecomp/patches/guest_snapshot.h
+@@ -0,0 +1,151 @@
++#pragma once
++
++// Guest snapshot for unleashed-rs: with UNLEASHED_SNAPSHOT_OUT=<dir>, pressing F8 in a
++// stage makes the next call of each hooked function (sub_82346F08, Sonic's per-frame
++// common posture update; sub_8247D458, CPlayer3DNormalCamera3) write
++// <dir>/<function>_pre.bin (registers + guest memory on entry) and
++// <dir>/<function>_post.bin (guest memory on return). The Rust lift replays the call on pre.bin and is compared with
++// post.bin; pre.bin is also the state the Rust host starts from.
++//
++// File: "ULSNAP01", u32 version (1), u32 function, u32 flags (bit 0: UnleashedRecomp PC
++// fixes active), f64 App::s_deltaTime, u32 MXCSR, u32 page count, registers
++// (u64 r1,r3..r10,r13; f64 f1..f13; 16-byte v0..v13, host lane order), then per page:
++// u32 page index (64 KiB pages), 65536 bytes. Pages none of whose 4 KiB parts are in
++// the working set are left out (never touched, so zero).
++
++#include <kernel/memory.h>
++#include <app.h>
++
++#include <cstdio>
++#include <cstdlib>
++#include <cstring>
++#include <string>
++#include <vector>
++
++extern "C" __declspec(dllimport) short __stdcall GetAsyncKeyState(int key);
++extern "C" __declspec(dllimport) int __stdcall K32QueryWorkingSetEx(void* process, void* pv, unsigned long cb);
++
++namespace GuestSnapshot
++{
++    inline constexpr uint32_t PageSize = 0x10000;
++    inline constexpr uint32_t PageCount = 0x10000;
++
++    inline bool g_armed;
++    inline uint32_t g_done[8];
++    inline uint32_t g_doneCount;
++
++    inline bool Done(uint32_t function)
++    {
++        for (uint32_t i = 0; i < g_doneCount; i++)
++            if (g_done[i] == function)
++                return true;
++        return false;
++    }
++
++    inline const char* OutDir()
++    {
++        const char* d = std::getenv("UNLEASHED_SNAPSHOT_OUT");
++        return d && *d ? d : nullptr;
++    }
++
++    inline std::string PathFor(uint32_t function, const char* which)
++    {
++        char name[32];
++        std::snprintf(name, sizeof(name), "/%08X_%s.bin", function, which);
++        return std::string(OutDir()) + name;
++    }
++
++    // 64 KiB pages with any 4 KiB part resident.
++    inline std::vector<uint32_t> ResidentPages()
++    {
++        struct Info { void* va; uint64_t attributes; };
++        constexpr uint32_t sub = PageSize / 0x1000;
++        std::vector<Info> info(size_t(PageCount) * sub);
++        for (size_t i = 0; i < info.size(); i++)
++            info[i].va = g_memory.base + i * 0x1000;
++        std::vector<uint32_t> pages;
++        if (!K32QueryWorkingSetEx((void*)-1, info.data(), (unsigned long)(info.size() * sizeof(Info))))
++            return pages;
++        // Guest memory is committed and touched in full, so residency alone keeps every
++        // page: also leave out pages that are all zero (the reader treats them as zero).
++        auto zero = [](const uint8_t* p)
++        {
++            const uint64_t* q = reinterpret_cast<const uint64_t*>(p);
++            for (uint32_t i = 0; i < PageSize / 8; i++)
++                if (q[i])
++                    return false;
++            return true;
++        };
++        for (uint32_t p = 1; p < PageCount; p++)
++            for (uint32_t s = 0; s < sub; s++)
++                if (info[size_t(p) * sub + s].attributes & 1)
++                {
++                    if (!zero(g_memory.base + size_t(p) * PageSize))
++                        pages.push_back(p);
++                    break;
++                }
++        return pages;
++    }
++
++    inline void Write(const std::string& path, PPCContext* ctx, uint32_t function)
++    {
++        FILE* f = std::fopen(path.c_str(), "wb");
++        if (!f)
++            return;
++        auto pages = ResidentPages();
++        auto put = [&](const void* p, size_t n) { std::fwrite(p, 1, n, f); };
++        auto u32 = [&](uint32_t v) { put(&v, 4); };
++        put("ULSNAP01", 8);
++        u32(1);
++        u32(function);
++        u32(1); // PC fixes are compiled into this build
++        double dt = App::s_deltaTime;
++        put(&dt, 8);
++        u32(ctx ? ctx->fpscr.csr : 0);
++        u32(uint32_t(pages.size()));
++        if (ctx)
++        {
++            PPCRegister* r[] = { &ctx->r1, &ctx->r3, &ctx->r4, &ctx->r5, &ctx->r6, &ctx->r7, &ctx->r8, &ctx->r9, &ctx->r10, &ctx->r13 };
++            for (auto* x : r) put(&x->u64, 8);
++            PPCRegister* fr[] = { &ctx->f1, &ctx->f2, &ctx->f3, &ctx->f4, &ctx->f5, &ctx->f6, &ctx->f7, &ctx->f8, &ctx->f9,
++                &ctx->f10, &ctx->f11, &ctx->f12, &ctx->f13 };
++            for (auto* x : fr) put(&x->f64, 8);
++            PPCVRegister* vr[] = { &ctx->v0, &ctx->v1, &ctx->v2, &ctx->v3, &ctx->v4, &ctx->v5, &ctx->v6, &ctx->v7, &ctx->v8,
++                &ctx->v9, &ctx->v10, &ctx->v11, &ctx->v12, &ctx->v13 };
++            for (auto* x : vr) put(x->u8, 16);
++        }
++        else
++        {
++            std::vector<uint8_t> zero(10 * 8 + 13 * 8 + 14 * 16);
++            put(zero.data(), zero.size());
++        }
++        for (uint32_t p : pages)
++        {
++            u32(p);
++            put(g_memory.base + size_t(p) * PageSize, PageSize);
++        }
++        std::fclose(f);
++    }
++
++    // Called on every entry of the hooked function; true when this call is snapshotted.
++    inline bool Before(PPCContext& ctx, uint32_t function)
++    {
++        const char* dir = OutDir();
++        if (!dir || Done(function))
++            return false;
++        if (GetAsyncKeyState(0x77 /* VK_F8 */) & 0x8000)
++            g_armed = true;
++        if (!g_armed)
++            return false;
++        Write(PathFor(function, "pre"), &ctx, function);
++        return true;
++    }
++
++    inline void After(uint32_t function)
++    {
++        Write(PathFor(function, "post"), nullptr, function);
++        if (g_doneCount < 8)
++            g_done[g_doneCount++] = function;
++        std::fprintf(stderr, "[snapshot] wrote %s and %s\n", PathFor(function, "pre").c_str(), PathFor(function, "post").c_str());
++    }
++}
